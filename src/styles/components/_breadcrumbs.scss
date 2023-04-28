@@ -1,0 +1,28 @@
+.breadcrumbs {
+    @include block-pos;
+    margin-top: 16px;
+
+    a,
+    span {
+        @include font-params(400, 14px, 17px);
+        color: #7A7A95;
+
+        &::after {
+            content: '/';
+            display: inline-block;
+            margin: 0 8px;
+        }
+
+        &:last-child {
+            color: #000;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    span {
+        color: #000;
+    }
+}

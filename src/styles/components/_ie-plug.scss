@@ -1,0 +1,59 @@
+.ie-plug {
+    text-align: center;
+    padding-top: 96px;
+
+    .regular-text {
+        max-width: 789px;
+        margin: 0 auto;
+        margin-bottom: 64px;
+    }
+
+    &__links {
+        a {
+            display: inline-block;
+            margin-right: 30px;
+            background: #F9F9F9;
+            padding: 123px 0;
+            width: 298px;
+
+            &:last-child {
+                margin: 0;
+            }
+        
+            p {
+                text-transform: uppercase;
+            }
+
+            &.safari {
+                p {
+                    color: #00A0E6;
+                }
+            }
+            
+            &.opera {
+                p {
+                    color: #F25648;
+                }
+            }
+            
+            &.firefox {
+                p {
+                    color: #F19A2A;
+                }
+            }
+            
+            &.chrome {
+                p {
+                    color: #F2B635;
+                }
+            }
+        }
+    }
+
+    .contacts {
+        select {
+            display: block;
+            margin: auto;
+        }
+    }
+}

@@ -1,0 +1,5 @@
+<svg id="pages" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M40.625 6.25H9.375C7.64911 6.25 6.25 7.64911 6.25 9.375V40.625C6.25 42.3509 7.64911 43.75 9.375 43.75H40.625C42.3509 43.75 43.75 42.3509 43.75 40.625V9.375C43.75 7.64911 42.3509 6.25 40.625 6.25Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+<path d="M6.25 17.7083H43.75" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.7083 43.75V17.7083" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

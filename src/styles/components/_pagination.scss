@@ -1,0 +1,64 @@
+@keyframes activeTab {
+    0% {
+        color: #C1C1C1;
+        border-bottom: 2px solid transparent;
+    }
+
+    100% {
+        color: #00902A;
+        border-bottom: 2px solid #00902A;
+    }
+}
+
+.pagination {
+    @include flex-params(row, center, center);
+    gap: 24px;
+
+    @media (max-width: 1024px) {
+        gap: 16px;
+    }
+
+    &__button,
+    span {
+        @include font-params(600, 17px, 23px);
+        color: #C1C1C1;
+        padding: 0 4px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid transparent;
+
+        @media (max-width: 767px) {
+            font-size: 16px;
+        }
+
+        &.active {
+            color: #00902A;
+            border-bottom: 2px solid #00902A;
+            animation: activeTab .2s;
+        }
+    }
+
+    &__btn-prev {
+        transform: rotate(180deg);
+    }
+
+    &__btn-prev,
+    &__btn-next {
+        @include flex-params(row, center, center);
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        margin: 0 8px;
+
+        @media (max-width: 767px) {
+            margin: 0;
+        }
+
+        &:disabled {
+            svg {
+                path {
+                    stroke: #C1C1C1;
+                }
+            }
+        }
+    }
+}

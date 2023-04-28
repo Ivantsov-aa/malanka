@@ -1,0 +1,150 @@
+.callback-form__wrapper {
+    @include flex-params(row, space-between, flex-start);
+    @include pbBlock;
+    gap: 32px;
+
+    &__left {
+        max-width: 607px;
+    }
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        gap: 32px;
+    }
+}
+
+.callback-form {
+    @include flex-params(column, flex-start, flex-start);
+    max-width: 830px;
+    min-width: 260px;
+    width: 100%;
+    gap: 32px;
+
+    &__left {
+        max-width: 608px;
+    }
+
+    input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    input[type='tel'],
+    textarea {
+        @include font-params(500, 18px, 27px);
+        width: 100%;
+        border-bottom: 1px solid #7A7A95;
+        padding-bottom: 16px;
+
+        @media (max-width: 767px) {
+            @include font-params(500, 16px, 20px);
+
+        }
+
+        &::placeholder {
+            color: #000000;
+        }
+
+        &:focus {
+            &::placeholder {
+                color: #7A7A95;
+            }
+        }
+    }
+
+    textarea {
+        min-height: 122px;
+        resize: none;
+    }
+
+    input[type='checkbox'],
+    input[type='radio'] {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    label {
+        @include flex-params(row, flex-start, center);
+        gap: 10px;
+        @include font-params(400, 15px, 18px);
+
+        &::before {
+            content: '';
+            display: inline-block;
+            background: #F4F4FD;
+            box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px rgba(192, 192, 219, 0.7);
+            border-radius: 4px;
+            width: 100vw;
+            max-width: 24px;
+            height: 24px;
+        }
+
+        &.radio {
+            &::before {
+                background: #fff;
+                height: 16px;
+                max-width: 16px;
+                box-shadow: none;
+                border-radius: 50%;
+                border: 1px solid #00902A;
+            }
+        }
+
+        a {
+            @include font-params(400, 15px, 18px);
+            color: #6F9EFB;
+
+            &:hover {
+                color: #71C370;
+            }
+        }
+    }
+
+    .checkbox-btns {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+
+        label {
+            max-width: max-content;
+            white-space: nowrap;
+        }
+    }
+
+    .radio-btns__wrapper {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        border-bottom: 1px solid #7A7A95;
+        padding-bottom: 16px;
+    }
+
+    .radio-btns {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        gap: 24px;
+    }
+}
+
+input[type='checkbox']:checked+label,
+input[type='radio']:checked+label {
+    &::before {
+        background: url('../../../public/images/svg/green-checked.svg') no-repeat center, #F4F4FD;
+        background-size: 60%;
+    }
+
+    &.radio {
+        &::before {
+            background: #00902A;
+        }
+    }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+}

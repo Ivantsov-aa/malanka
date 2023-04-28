@@ -1,0 +1,42 @@
+.no-match-route {
+    .wrapper {
+        @include flex-params(row, center, center);
+        max-width: 1213px;
+        margin: 0 auto;
+        padding: 64px 0;
+        @include pbBlock;
+
+        div {
+            &:first-child {
+                max-width: 481px;
+            }
+
+            &:last-child {
+                @include flex-params(row, center, center);
+            }
+        }
+
+        .btn-green {
+            @include flex-params(row, center, center);
+            @include font-params(600, 16px, 24px);
+            padding: 11px 0;
+            color: #fff;
+        }
+
+        img {
+            max-height: 337px;
+            transform: translateX(25%);
+            z-index: 1;
+        }
+
+        span {
+            z-index: 0;
+            transform: translateX(-10%);
+            display: block;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            -webkit-text-stroke: 2px #C0C0DB;
+            @include font-params(900, 261px, 235px);
+        }
+    }
+}

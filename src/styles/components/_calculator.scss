@@ -1,0 +1,374 @@
+.calculator {
+    h2 {
+        margin: 32px 0;
+    }
+
+    h4 {
+        span {
+            color: #A3A3A7;
+        }
+    }
+
+    .block {
+        padding-bottom: 64px;
+
+        @media (max-width: 768px) {
+            padding-bottom: 32px;
+        }
+
+        .result {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+
+            @media (max-width: 768px) {
+
+                >div:first-child {
+                    flex-direction: column;
+                }
+            }
+
+            &-chart {
+                height: 100%;
+                width: 100%;
+                display: flex;
+
+                .chart-side {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 48px;
+                    width: 50%;
+                    padding-right: 64px;
+                    border-right: 1px solid #C0C0DB;
+
+                    &:last-child {
+                        padding: 0;
+                        padding-left: 64px;
+                        border: none;
+                    }
+
+                    @media (max-width: 768px) {
+                        width: 100%;
+                        border: none;
+                        border-bottom: 1px solid #C0C0DB;
+                        padding: 0;
+                        padding-bottom: 32px;
+
+                        &:last-child {
+                            padding: 0;
+                            padding-top: 32px;
+
+                            p {
+                                text-align: end;
+                            }
+                        }
+                    }
+
+                    .space-between {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .axes-title {
+                        font-weight: 600;
+                        --font-size: 16px;
+                        --line-height: 24px;
+                        margin-bottom: 24px;
+
+                        font-size: var(--font-size);
+                        line-height: var(--line-height);
+
+                        @media (max-width: 768px) {
+                            font-size: var(--font-size) - 20%;
+                            line-height: var(--line-height) - 20%;
+                        }
+                    }
+                }
+            }
+
+            &-profit {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 32px;
+
+                span {
+                    color: #000;
+                }
+
+                .img__wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 60px;
+                    max-width: 60px;
+                    height: 60px;
+                    border: 2.66667px solid #76D275;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__step {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            .title {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                -webkit-box-align: center;
+                align-items: center;
+                gap: 32px;
+
+                .count {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: rgb(0, 0, 0);
+                    border-radius: 50%;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    color: rgb(255, 255, 255);
+                    width: 100%;
+                    max-width: 29px;
+                    height: 29px;
+                }
+            }
+        }
+
+        .step-col {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            padding-right: 64px;
+            border-right: 1px solid #C0C0DB;
+
+            &:last-child {
+                padding: 0;
+                padding-left: 64px;
+                border: none;
+            }
+
+            @media (max-width: 768px) {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #C0C0DB;
+                padding: 0;
+                padding-bottom: 32px;
+
+                &:last-child {
+                    padding: 0;
+                    padding-top: 32px;
+                }
+            }
+
+            >div {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                gap: 32px;
+                flex-direction: column;
+            }
+
+            &__fields {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                gap: 32px;
+                flex-direction: column;
+
+                h4 {
+                    --font-size: 24px;
+                    --line-height: 36px;
+
+                    font-weight: 600;
+                    font-size: --font-size;
+                    line-height: --line-height;
+
+                    @media (max-width: 1440px) {
+                        font-size: --font-size - 20%;
+                        line-height: --line-height - 20%;
+                    }
+
+                    @media (max-width: 767px) {
+                        font-size: --font-size - 40%;
+                        line-height: --line-height - 40%;
+                    }
+                }
+
+                .flex-block {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                    max-width: max-content;
+                }
+            }
+        }
+
+        input[type='number'] {
+            border: 1px solid #7A7A95;
+            border-radius: 1000px;
+            padding: 15px 25px;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 1.5;
+            height: 59px;
+            color: #7A7A95;
+            width: 100%;
+            text-align: center;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &.mw-439 {
+                max-width: 439px;
+            }
+
+            &.mw-280 {
+                max-width: 280px;
+            }
+
+            &.mw-239 {
+                max-width: 239px;
+            }
+        }
+
+        .radio-wrap {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .radio-container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                gap: 24px;
+
+                &.vertical {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+                .radio {
+                    position: relative;
+
+                    label {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 8px;
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 1.5;
+
+                        &::before {
+                            content: '';
+                            display: block;
+                            margin: 0 auto;
+                            height: 16px;
+                            width: 100%;
+                            min-width: 16px;
+                            max-width: 16px;
+                            border-radius: 50%;
+                            border: 1px solid #00902A;
+                        }
+
+                        @media (max-width: 767px) {
+                            font-size: 16px;
+                        }
+                    }
+
+                    &.vertical {
+                        label {
+                            flex-direction: column;
+                        }
+                    }
+
+                    input:checked+label {
+                        &::before {
+                            background: #00902A;
+                        }
+                    }
+
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+
+        .step-wrap {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .row-top {
+                height: max-content;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                gap: 32px;
+            }
+
+            .row-bottom {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .table-row {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 16px;
+                    align-items: center;
+
+                    @media (max-width: 1024px) {
+                        flex-direction: column;
+
+                        &:first-child {
+                            flex-direction: row;
+                        }
+
+                        input {
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

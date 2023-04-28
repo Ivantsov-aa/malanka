@@ -1,0 +1,248 @@
+.charging {
+    &__title {
+        @include block-pos;
+        margin: 32px auto 128px;
+
+        @media (max-width: 767px) {
+            margin: 32px auto 64px;
+        }
+
+        >div {
+            @include flex-params(row, space-between, center);
+            gap: 20px;
+
+            h4 {
+                max-width: 1098px;
+            }
+
+            .app-links {
+                flex-wrap: nowrap;
+            }
+
+            @media (max-width: 767px) {
+                flex-direction: column;
+
+                .app-links {
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+
+
+    .instructions-wrapper {
+        padding: 64px 0;
+        margin-bottom: 128px;
+
+        .instructions {
+            padding: 0 20px;
+
+            h3 {
+                margin-bottom: 32px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            margin-bottom: 64px;
+        }
+
+        @media (max-width: 767px) {
+            padding: 32px 20px;
+            margin-bottom: 32px;
+
+            .instructions {
+                h3 {
+                    margin-bottom: 16px;
+                }
+            }
+        }
+    }
+
+    .faq-block {
+        @include flex-params(row, space-between, flex-start);
+        gap: 50px;
+        @include pbBlock;
+
+        @media (max-width: 767px) {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        h3 {
+            max-width: 361px;
+
+            @media (max-width: 767px) {
+                max-width: 100%;
+            }
+        }
+
+        &__accordion {
+            flex-grow: 1;
+            max-width: 75%;
+
+            @media (max-width: 768px) {
+                max-width: 100%;
+            }
+
+            li {
+                &::before {
+                    display: none;
+                }
+            }
+
+            .accordion-item {
+                @include flex-params(column, space-between, flex-start);
+                padding: 16px 0;
+                border-bottom: 1px solid #7A7A95;
+
+                &.show {
+                    border-bottom: 1px solid #000000;
+
+                    >.accordion-item-header .faq-block__button {
+                        &::after {
+                            background-color: #000;
+                        }
+
+                        &::before {
+                            transform: translate(-50%, -50%) rotate(0);
+                        }
+                    }
+
+                    >.accordion-item-content {
+                        max-height: 3000px;
+                        padding-top: 16px;
+
+                        .accordion-item:last-child {
+                            border: none;
+                            padding-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .accordion-item-header {
+            @include flex-params(row, space-between, center);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .accordion-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all .2s;
+
+            li {
+                width: 100%;
+            }
+
+            p {
+                font-size: 18px;
+                line-height: 1.5;
+
+                @media (max-width: 1024px) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .video-block {
+        @include pbBlock;
+    }
+}
+
+.video-block__container {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    z-index: 0;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 660px;
+    width: 100%;
+    z-index: 0;
+
+    @media (max-width: 767px) {
+        height: 300px;
+    }
+
+    .upload-video__button {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .upload-video__button {
+            visibility: visible;
+        }
+    }
+ 
+    video, iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    &.iframe {
+        &::after {
+            display: none;
+        }
+    }
+
+    &.play {
+
+        &::after,
+        .play-btn {
+            opacity: 0;
+        }
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba($color: #000000, $alpha: .3);
+        border-radius: 6px;
+        z-index: 1;
+        opacity: 1;
+    }
+
+    video {
+        object-fit: cover;
+    }
+
+    .play-btn {
+        opacity: 1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 2;
+
+        .icon-wrapper {
+            position: absolute;
+            padding: 12px;
+            width: 92px;
+            height: 92px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            border: 2px solid rgba($color: #F4F4FD, $alpha: .5);
+            border-radius: 50%;
+            transition: all .2s;
+        }
+
+        &:hover {
+            .icon-wrapper {
+                transform: translate(-50%, -50%) scale(1.1);
+                border-color: #F4F4FD;
+            }
+        }
+    }
+}
