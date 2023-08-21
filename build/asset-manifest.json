@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fba879bf.css",
+    "main.js": "/static/js/main.28a3127a.js",
+    "static/media/support.png": "/static/media/support.60a49ab574193864db79.png",
+    "static/media/bg-image.png": "/static/media/bg-image.5e302687b963bafbc2eb.png",
+    "static/media/price-page-bg.png": "/static/media/price-page-bg.4b8b074a5530f99b06cf.png",
+    "static/media/indivual-bg.png": "/static/media/indivual-bg.ae9b2cc53dd2b406332f.png",
+    "index.html": "/index.html",
+    "static/media/benefit-icon.svg": "/static/media/benefit-icon.e77570cbaececc6f77e9.svg",
+    "static/media/green-checked.svg": "/static/media/green-checked.b4a74b1060883263f750.svg"
+  },
+  "entrypoints": [
+    "static/css/main.fba879bf.css",
+    "static/js/main.28a3127a.js"
+  ]
+}
