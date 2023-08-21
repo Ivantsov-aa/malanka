@@ -88,7 +88,7 @@ export const MediaUploader = ({
                 .then((response) => response.json())
                 .then((result) => {
                     if (result.generatedFilename) {
-                        const mediaFile = `${url}/unsecure/image/${result.generatedFilename}`;
+                        const mediaFile = `/malanka/image/${result.id}`;
                         setImage(mediaFile);
                         target.setAttribute("src", mediaFile);
                     }
