@@ -7,7 +7,7 @@
         max-width: 607px;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         gap: 32px;
     }
@@ -19,9 +19,15 @@
     min-width: 260px;
     width: 100%;
     gap: 32px;
+    position: relative;
 
     &__left {
         max-width: 608px;
+    }
+
+    input#personal-agreement {
+        bottom: 78px;
+        left: 4px;
     }
 
     input[type='text'],
@@ -29,15 +35,11 @@
     input[type='email'],
     input[type='tel'],
     textarea {
-        @include font-params(500, 18px, 27px);
+        @include font-params(400, 15px, 1.45);
         width: 100%;
         border-bottom: 1px solid #7A7A95;
+        border-radius: 0;
         padding-bottom: 16px;
-
-        @media (max-width: 767px) {
-            @include font-params(500, 16px, 20px);
-
-        }
 
         &::placeholder {
             color: #000000;
@@ -65,12 +67,12 @@
     label {
         @include flex-params(row, flex-start, center);
         gap: 10px;
-        @include font-params(400, 15px, 18px);
+        @include font-params(400, 15px, 1.45);
 
         &::before {
             content: '';
             display: inline-block;
-            background: #F4F4FD;
+            background: #FFF;
             box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px rgba(192, 192, 219, 0.7);
             border-radius: 4px;
             width: 100vw;
@@ -90,11 +92,11 @@
         }
 
         a {
-            @include font-params(400, 15px, 18px);
+            @include font-params(400, 15px, 1.45);
             color: #6F9EFB;
 
             &:hover {
-                color: #71C370;
+                color: #76D275;
             }
         }
     }
@@ -120,6 +122,10 @@
         gap: 16px;
         border-bottom: 1px solid #7A7A95;
         padding-bottom: 16px;
+
+        &.error {
+            border-color: #FC978C;
+        }
     }
 
     .radio-btns {
@@ -127,13 +133,21 @@
         width: 100%;
         display: flex;
         gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .btn-green {
+        svg {
+            width: 30px;
+            height: 30px;
+        }
     }
 }
 
 input[type='checkbox']:checked+label,
 input[type='radio']:checked+label {
     &::before {
-        background: url('../../../public/images/svg/green-checked.svg') no-repeat center, #F4F4FD;
+        background: url('../../../public/images/svg/green-checked.svg') no-repeat center, #FFF;
         background-size: 60%;
     }
 

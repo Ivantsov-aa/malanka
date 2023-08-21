@@ -34,18 +34,18 @@ export const Pagination = ({ pageQuantity, current, handleChosenPage, actionPrev
 
     return (
         <div className='pagination'>
-            <button className='pagination__btn-prev' disabled={current === 1 ? true : false} onClick={actionPrev}>
+            <button className='pagination__btn-prev' disabled={current === 0 ? true : false} onClick={actionPrev}>
                 <svg width="9" height="16" viewBox="0 0 13 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.99805 1.11963L11.998 11.1196L1.99805 21.1196" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </button>
             {pagesNumbers && pagesNumbers.map((page, i) => (
                 page !== '...' ?
-                    <button className={`pagination__button ${current === page ? 'active' : ''}`} onClick={() => {handleChosenPage(page)}} key={i}>{page}</button>
+                    <button className={`pagination__button ${current + 1 === page ? 'active' : ''}`} onClick={() => {handleChosenPage(page)}} key={i}>{page}</button>
                     :
                     <span key={i}>{page}</span>
             ))}
-            <button className='pagination__btn-next' disabled={current === pageQuantity ? true : false} onClick={actionNext}>
+            <button className='pagination__btn-next' disabled={current + 1 === pageQuantity ? true : false} onClick={actionNext}>
                 <svg width="9" height="16" viewBox="0 0 13 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.99805 1.11963L11.998 11.1196L1.99805 21.1196" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

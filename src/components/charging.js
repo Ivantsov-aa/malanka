@@ -1,12 +1,14 @@
-import { Breadcrumbs } from "./breadcrumbs/breadcrumbs"
-import { AppLinks } from "./AppLinks/AppLinks"
-import { CallbackForm } from "./callback-form/callback-form";
-import { Instructions } from "./instructions/instructions"
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { handlerPageData } from "../services/handlerPageData";
-import { convertLink } from "../services/convertLink";
-import { useNavigate } from "react-router-dom";
+import {Breadcrumbs} from "./breadcrumbs/breadcrumbs"
+import {AppLinks} from "./AppLinks/AppLinks"
+import {CallbackForm} from "./callback-form/callback-form";
+import {Instructions} from "./instructions/instructions"
+import {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {handlerPageData} from "../services/handlerPageData";
+import {convertLink} from "../services/convertLink";
+import {useNavigate} from "react-router-dom";
+import {url} from "./admin/AuthForm/AuthForm";
+import {errorMessage} from "../services/errorMessage";
 
 const generateId = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -69,7 +71,8 @@ const faq = {
 }
 
 export const Charging = () => {
-    const { language } = useSelector(store => store.localLanguage);
+    const {isLogged, userInfo} = useSelector((store) => store.authAdmin);
+    const {language} = useSelector(store => store.localLanguage);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -79,17 +82,25 @@ export const Charging = () => {
     const loadPage = () => {
         const main = document.querySelector('main');
 
-        handlerPageData().getContent(80, 1)
+        handlerPageData().getContent(58, 1)
             .then(result => {
                 const parser = new DOMParser();
                 const page = parser.parseFromString(result, 'text/html').querySelector('main');
                 const button = document.querySelector('.play-btn');
-                convertLink('', navigate);
+                if (isLogged) {
+                    convertLink(page.querySelectorAll('a'), navigate, `/admin/${userInfo.username}`);
+                } else {
+                    convertLink(page.querySelectorAll('a'), navigate);
+                }
                 main.innerHTML = page.innerHTML;
                 addDropdownEvent();
                 if (button) {
                     addPlayBtnEvent();
                 }
+                document.querySelector('form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    sendEmail();
+                });
             })
     }
 
@@ -98,35 +109,35 @@ export const Charging = () => {
         faqBlockCategory.forEach(category => {
             category.addEventListener('click', (e) => {
                 faqBlockCategory.forEach(el => {
-                    if (e.target.parentElement.dataset.id === el.parentElement.dataset.id || el.parentElement.children[1].contains(e.target)) {
-                        if (el.parentElement.classList.contains('show') && e.target.parentElement === category.parentElement) {
+                    if (e.target.parentElement.dataset.id === el.parentElement.dataset.id || el.parentElement.children[1].contains(e.target) || el.contains(e.target)) {
+                        if (el.parentElement.classList.contains('show') && e.target.parentElement === category.parentElement || el.parentElement.classList.contains('show') && e.target.parentElement.parentElement === category.parentElement) {
                             el.parentElement.classList.remove('show');
                         } else {
                             el.parentElement.classList.add('show');
-                            el.parentElement.parentElement.scrollIntoView({ block: "start", behavior: "smooth" });
-                            const faqBlockSubcategory = el.parentElement.querySelectorAll('.accordion-item .y');
-                            faqBlockSubcategory.forEach(subcategory => {
-                                subcategory.addEventListener('click', (e) => {
-                                    faqBlockSubcategory.forEach(subelem => {
-                                        if (e.target.parentElement.dataset.id === subelem.parentElement.dataset.id) {
-                                            if (subelem.parentElement.classList.contains('show')) {
-                                                subelem.parentElement.classList.remove('show');
-                                            } else {
-                                                subelem.parentElement.classList.add('show');
-                                            }
-                                        } else {
-                                            subelem.parentElement.classList.remove('show');
-                                        }
-                                    })
-                                })
-                            })
-
+                            el.parentElement.parentElement.scrollIntoView({block: "start", behavior: "smooth"});
                         }
                     } else {
                         el.parentElement.classList.remove('show');
                     }
                 })
             });
+        })
+
+        const faqBlockSubcategory = document.querySelectorAll('.accordion-item .y');
+        faqBlockSubcategory.forEach(subcategory => {
+            subcategory.addEventListener('click', (e) => {
+                faqBlockSubcategory.forEach(subelem => {
+                    if (e.target.parentElement.dataset.id === subelem.parentElement.dataset.id || e.target.parentElement.parentElement.dataset.id === subelem.parentElement.dataset.id) {
+                        if (subelem.parentElement.classList.contains('show')) {
+                            subelem.parentElement.classList.remove('show');
+                        } else {
+                            subelem.parentElement.classList.add('show');
+                        }
+                    } else {
+                        subelem.parentElement.classList.remove('show');
+                    }
+                })
+            })
         })
     }
 
@@ -145,10 +156,57 @@ export const Charging = () => {
         })
     }
 
+    const sendEmail = async () => {
+        const inputs = Array.from(document.querySelectorAll('form input[type=text]')).map(item => item);
+        const comment = document.querySelector('form textarea');
+        let isValid = true;
+
+        if (!inputs[0].value) {
+            errorMessage(inputs[0], 'Поле обязательно для заполнения');
+            isValid = false;
+        }
+
+        if (!/[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/gi.test(inputs[1].value)) {
+            errorMessage(inputs[1], 'E-mail введён некорректно');
+            isValid = false;
+        }
+
+        if (!comment.value) {
+            errorMessage(comment, 'Поле обязательно для заполнения');
+            isValid = false;
+        }
+
+        if (isValid) {
+            const formBtn = document.querySelector('form button');
+            formBtn.innerText = '';
+            formBtn.insertAdjacentHTML('afterbegin', '<img src="/images/svg/spinner.svg" alt="" />');
+
+            await fetch(`${url}/mail-contact`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: inputs[0].value,
+                    email: inputs[1].value,
+                    comment: comment.value
+                })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    result && document.querySelector("form").reset();
+                    formBtn.innerText = 'Отправлено';
+                    setTimeout(() => {
+                        formBtn.innerText = 'Отправить';
+                    }, 3000);
+                })
+        }
+    }
+
     return (
-        <main className='charging' data-id='80' data-count='1'>
-            <div className='pt-16'>
-                <Breadcrumbs padding link={{ name: 'Як зарадзіць электрамабіль', path: 'help' }} />
+        <main className='charging' data-id='58' data-count='1'>
+            {/* <div className='pt-16'>
+                <Breadcrumbs padding link={{name: 'Як зарадзіць электрамабіль', path: 'help'}} />
                 <section className='charging__title block'>
                     <h2 className='mb-16'>Як зарадзіць электрамабіль</h2>
                     <div>
@@ -499,7 +557,7 @@ export const Charging = () => {
                             <button className='play-btn'>
                                 <div className='icon-wrapper'>
                                     <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M34 0.259766C27.3311 0.259766 20.8119 2.23734 15.2669 5.9424C9.72186 9.64746 5.40004 14.9136 2.84795 21.0749C0.29586 27.2362 -0.371884 34.0159 0.929162 40.5567C2.23021 47.0975 5.44161 53.1056 10.1573 57.8213C14.8729 62.5369 20.881 65.7483 27.4218 67.0494C33.9626 68.3504 40.7423 67.6827 46.9036 65.1306C53.0649 62.5785 58.3311 58.2567 62.0361 52.7116C65.7412 47.1666 67.7188 40.6475 67.7188 33.9785C67.7016 25.041 64.1436 16.4745 57.8238 10.1547C51.5041 3.83491 42.9375 0.276904 34 0.259766ZM45.8016 36.1508L30.2391 46.5258C29.8098 46.7914 29.3172 46.9369 28.8125 46.9473C28.3848 46.9469 27.9629 46.847 27.5805 46.6555C27.1658 46.4317 26.82 46.0991 26.58 45.6935C26.3401 45.288 26.2152 44.8247 26.2188 44.3535V23.6035C26.2152 23.1323 26.3401 22.6691 26.58 22.2635C26.82 21.8579 27.1658 21.5254 27.5805 21.3016C27.9968 21.0908 28.4608 20.9919 28.9269 21.0147C29.393 21.0374 29.8452 21.181 30.2391 21.4313L45.8016 31.8063C46.1628 32.042 46.4596 32.364 46.665 32.7433C46.8704 33.1226 46.978 33.5472 46.978 33.9785C46.978 34.4099 46.8704 34.8344 46.665 35.2137C46.4596 35.593 46.1628 35.9151 45.8016 36.1508Z" fill="#F4F4FD" />
+                                        <path d="M34 0.259766C27.3311 0.259766 20.8119 2.23734 15.2669 5.9424C9.72186 9.64746 5.40004 14.9136 2.84795 21.0749C0.29586 27.2362 -0.371884 34.0159 0.929162 40.5567C2.23021 47.0975 5.44161 53.1056 10.1573 57.8213C14.8729 62.5369 20.881 65.7483 27.4218 67.0494C33.9626 68.3504 40.7423 67.6827 46.9036 65.1306C53.0649 62.5785 58.3311 58.2567 62.0361 52.7116C65.7412 47.1666 67.7188 40.6475 67.7188 33.9785C67.7016 25.041 64.1436 16.4745 57.8238 10.1547C51.5041 3.83491 42.9375 0.276904 34 0.259766ZM45.8016 36.1508L30.2391 46.5258C29.8098 46.7914 29.3172 46.9369 28.8125 46.9473C28.3848 46.9469 27.9629 46.847 27.5805 46.6555C27.1658 46.4317 26.82 46.0991 26.58 45.6935C26.3401 45.288 26.2152 44.8247 26.2188 44.3535V23.6035C26.2152 23.1323 26.3401 22.6691 26.58 22.2635C26.82 21.8579 27.1658 21.5254 27.5805 21.3016C27.9968 21.0908 28.4608 20.9919 28.9269 21.0147C29.393 21.0374 29.8452 21.181 30.2391 21.4313L45.8016 31.8063C46.1628 32.042 46.4596 32.364 46.665 32.7433C46.8704 33.1226 46.978 33.5472 46.978 33.9785C46.978 34.4099 46.8704 34.8344 46.665 35.2137C46.4596 35.593 46.1628 35.9151 45.8016 36.1508Z" fill="#FFF" />
                                     </svg>
                                 </div>
                             </button>
@@ -513,7 +571,7 @@ export const Charging = () => {
                         <CallbackForm />
                     </section>
                 </div>
-            </div >
+            </div > */}
         </main >
     )
 }

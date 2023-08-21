@@ -1,0 +1,20 @@
+{
+    "buildDirectory": "./build",
+    "routes": [
+        "/",
+        "/news",
+        "/help",
+        "/contact-us",
+        "/our-mission",
+        "/price",
+        "/advertising",
+        "/partner",
+        "/partner/integration",
+        "/partner/consalting",
+        "/partner/white-label",
+        "/individual",
+        "/shop247",
+        "/calculator",
+        "/help"
+    ]
+}

@@ -5,7 +5,7 @@ export const CalculatorStyled = styled.div`
     max-width: 1720px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px 64px;
+    padding:  0 15px 64px;
 
     @media (max-width: 768px) {
         padding-bottom: 32px;
@@ -50,7 +50,7 @@ export const CalculatorFormBlockStyled = styled(FlexWrap)`
 
         &:last-child {
             padding: 0;
-            padding-top: 32px;
+            padding-top: 40px;
         }
     }
 `;
@@ -97,7 +97,7 @@ export const CalculatorAverageConsumptionBlockStyled = styled(FlexWrap)`
             line-height: --line-height * 0.8;
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             font-size: --font-size * 0.6;
             line-height: --line-height * 0.6;
         }
@@ -132,7 +132,7 @@ export const CalculatorRadioButtonStyled = styled.div`
             border: 1px solid #00902A;
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             font-size: 16px;
         }
     }

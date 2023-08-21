@@ -8,12 +8,12 @@ export const StyledButton = styled.button`
     width: 100vw;
     max-width: 263px;
     padding: 13px 20px;
-    background: ${props => props.primary ? 'linear-gradient(271.12deg, #6FBE6E 0%, #8BEB8A 100%);' : '#F4F4FD'};
+    background: ${props => props.primary ? 'linear-gradient(271.12deg, #6FBE6E 0%, #8BEB8A 100%);' : '#FFF'};
     box-shadow: -6px -6px 16px rgba(255, 255, 255, 0.7), 6px 6px 20px rgba(192, 192, 219, 0.7);
     border-radius: 50px;
 
     &:active, &.active {
-        background: ${props => props.primary ? '#71C470' : '#F4F4FD'};
+        background: ${props => props.primary ? '#71C470' : '#FFF'};
         box-shadow: ${props => props.primary ? 'inset -2px -2px 2px rgba(255, 255, 255, 0.2), inset 2px 2px 4px #62A661' : 'inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px rgba(192, 192, 219, 0.7)'};
     }
 

@@ -1,4 +1,4 @@
-export const convertLink = (links, navigate) => {
+export const convertLink = (links, navigate, addPath) => {
     const main = document.querySelector('main');
 
     document.addEventListener('click', (e) => {
@@ -6,20 +6,23 @@ export const convertLink = (links, navigate) => {
             e.preventDefault();
 
             const href = e.target.href.split('/').pop();
-            navigate(`/${href}`);
+
+            if (!addPath) {
+                navigate(`/${href}`);
+            } else {
+                navigate(`${addPath}/${href}`);
+            }
+        }
+
+        if (e.target.parentElement.parentElement.matches('a') && main.contains(e.target.parentElement.parentElement) && e.target.parentElement.parentElement.href.includes(window.location.origin)) {
+            e.preventDefault();
+
+            const href = e.target.parentElement.parentElement.href.split('/').pop();
+            if (!addPath) {
+                navigate(`/${href}`);
+            } else {
+                navigate(`/${addPath}/${href}`);
+            }
         }
     })
-
-    // links.forEach(link => {
-    //     if (link.href.includes(window.location.origin)) {
-    //         let href;
-    //         if (link.href.includes('partner') && link.href.split('/').pop() !== 'partner') {
-    //             href = 'partner/' + link.href.split('/').pop();
-    //         } else {
-    //             href = link.href.split('/').pop();
-    //         }
-
-    //         link.setAttribute('href', href);
-    //     }
-    // })
 }

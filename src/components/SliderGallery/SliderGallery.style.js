@@ -45,7 +45,7 @@ export const SliderGalleryControlStyled = styled(FlexWrap)`
     gap: 35px;
     max-width: max-content;
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         gap: 30px;
     }

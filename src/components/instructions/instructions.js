@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-export const Instructions = ({ title, list, subtitle }) => {
-    const { language } = useSelector(store => store.localLanguage);
+export const Instructions = ({title, list, subtitle}) => {
+    const {language} = useSelector(store => store.localLanguage);
     return (
         <section className='instructions'>
             <div className={`instructions__title ${subtitle ? 'mb-64' : 'mb-16'}`}>
@@ -18,7 +18,15 @@ export const Instructions = ({ title, list, subtitle }) => {
                         <div>
                             <div className='list-title'>
                                 <p className='count'>{i + 1}</p>
-                                <p>{item.text}</p>
+                                <p>{language === 'RU' ?
+                                    item.textRus
+                                    :
+                                    (language === 'EN' ?
+                                        item.textEng
+                                        :
+                                        item.textBel
+                                    )}
+                                </p>
                             </div>
                             <img src={item.path} loading='lazy' alt='instruction-step' />
                         </div>

@@ -33,7 +33,7 @@ export const chargeTypes = [
         ratio: 0.4
     },
     {
-        title: 'Медленная',
+        titleRus: 'Медленная',
         titleEng: 'Slow',
         titleBel: 'Павольная',
         ratio: 0.4

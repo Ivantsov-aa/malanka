@@ -1,77 +1,139 @@
 .select {
-    position: relative;
-    max-width: 185px;
-    width: 100%;
+  position: relative;
+  max-width: 187px;
+  width: 100%;
 
-    &__header,
-    &__list-item {
-        @include font-params(500, 18px, 27px);
-        color: #000;
-        cursor: pointer;
-    }
+  @media (max-width: 500px) {
+    max-width: 100%;
+    text-align: center;
+  }
 
-    &__header {
-        @include flex-params(row, space-between, center);
-        padding: 10px 0;
-        gap: 6px;
-    }
+  &__header,
+  &__list-item {
+    @include font-params(500, 18px, 27px);
+    color: #000;
+    cursor: pointer;
+  }
 
-    &__list {
-        position: absolute;
-        width: 100%;
-        top: 100%;
-        left: 0;
-        z-index: 10;
-        gap: 0;
-        background: #FFFFFF;
-    }
+  &__header {
+    @include flex-params(row, space-between, center);
+    padding: 10px 0;
+    gap: 6px;
 
-    &__list-item {
-        @include flex-params(column, flex-start, flex-start);
-        position: relative;
-        width: 100%;
-        padding: 10px 0;
+    @media (max-width: 500px) {
+        justify-content: center;
 
-        &::before {
-            display: none;
-        }
-
-        &::after {
-            content: '';
+        svg {
             position: absolute;
-            display: block;
-            bottom: 0;
-            height: 20px;
-            width: 20px;
+            right: 18px;
+        }
+    }
+  }
+
+  &__list {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    gap: 0;
+    background: #ffffff;
+  }
+
+  &__list-item {
+    @include flex-params(column, flex-start, flex-start);
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+
+    @media (max-width: 500px) {
+        padding-left: -10px;
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      height: 20px;
+      width: 20px;
+      border-radius: 4px;
+    }
+
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &.form {
+    width: 100%;
+    background: #ffffff;
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid #7a7a95;
+
+    .select__header {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 27px;
+      color: #000;
+      padding: 0;
+      padding-bottom: 16px;
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &_primary {
+    width: 100%;
+    max-width: 320px;
+    position: relative;
+
+    .select__header {
+      background: #FFF;
+      box-shadow: inset -2px -2px 2px #ffffff,
+        inset 2px 2px 2px rgba(192, 192, 219, 0.7);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #7a7a95;
+      font-size: 15px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .select__list {
+      background: #FFF;
+      box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.7), 2px 2px 4px #d0d0e6;
+      border-radius: 4px;
+      padding: 0 16px;
+
+      &-item {
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #7a7a95;
+        padding: 14px 0;
+
+        &:first-of-type {
+          &::after {
+            height: 3px;
+            width: 100%;
+            background: #FFF;
+            box-shadow: inset 0px -2px 2px #ffffff,
+              inset 0px 2px 2px rgba(192, 192, 219, 0.7);
             border-radius: 4px;
+          }
         }
-
-        &:last-child {
-            &::after {
-                display: none;
-            }
-        }
+      }
     }
-
-    &.form {
-        width: 100%;
-        background: #FFFFFF;
-        box-shadow: none;
-        border-radius: 0;
-        border-bottom: 1px solid #7A7A95;
-
-        .select__header {
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 27px;
-            color: #000;
-            padding: 0;
-            padding-bottom: 16px;
-
-            @media (max-width: 767px) {
-                font-size: 16px;
-                line-height: 20px;
-            }
-        }
-    }
+  }
 }

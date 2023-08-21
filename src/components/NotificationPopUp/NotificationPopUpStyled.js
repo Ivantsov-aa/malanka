@@ -31,7 +31,7 @@ export const NotificationPopUpStyled = styled.div`
     right: 200px;
     z-index: 150;
     border-radius: 30px;
-    background: #F4F4FD;
+    background: #FFF;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 12px;
     border-radius: 12px;
     color: #7A7A95;

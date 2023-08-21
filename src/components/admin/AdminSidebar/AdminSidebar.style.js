@@ -49,7 +49,7 @@ export const AdminSidebarStyled = styled.aside`
             display: flex;
             align-items: center;
             padding: 30px;
-            color: #71C370;
+            color: #76D275;
 
             svg {
                 width: 50px;
@@ -97,8 +97,8 @@ export const AdminSidebarStyled = styled.aside`
                     span {
                         box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.15);
                         width: 100vw;
-                        max-width: 210px;
-                        color: #71C370;
+                        max-width: 270px;
+                        color: #76D275;
                         opacity: 1;
                     }
                 }

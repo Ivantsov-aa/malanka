@@ -49,7 +49,7 @@ export const EditTextPanelContainer = styled.div`
     textarea {
         width: 100%;
         height: 200px;
-        background: #F4F4FD;
+        background: #FFF;
         box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px rgba(192, 192, 219, 0.7);
         border-radius: 12px;
         resize: none;

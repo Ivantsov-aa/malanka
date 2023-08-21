@@ -1,45 +1,46 @@
-import { useState } from 'react';
-import { Breadcrumbs } from './breadcrumbs/breadcrumbs';
-import { PriceTableCol } from './price/price-table';
-import { AppLinks } from './AppLinks/AppLinks';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@pbe/react-yandex-maps';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { handlerPageData } from '../services/handlerPageData';
-import { convertLink } from '../services/convertLink';
+import {useState} from 'react';
+import {Breadcrumbs} from './breadcrumbs/breadcrumbs';
+import {PriceTableCol} from './price/price-table';
+import {AppLinks} from './AppLinks/AppLinks';
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Pagination} from "swiper";
+import {Link, useNavigate} from 'react-router-dom';
+import {Button} from '@pbe/react-yandex-maps';
+import {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {handlerPageData} from '../services/handlerPageData';
+import {convertLink} from '../services/convertLink';
+import {url} from './admin/AuthForm/AuthForm';
 
 const tableInfo = [
     {
         title: 'Маланка Mode 4 (DC)',
         power: '0,49 BYN',
         listOfBenefits: [
-            'Быстрые зарядные станции вблизи точек притяжения',
-            'Зарядка около крупных торговых центров',
-            'Быстрая зарядка на трассе М',
-            'Супербыстрые зарядные станции',
-            'Зарядка электромобиля CCS Combo 2, зарядка CHAdeMO, зарядка GBT'
+            'Хуткія зарадныя станцыі паблізу кропак прыцягнення',
+            'Зарадка каля буйных гандлёвых цэнтраў',
+            'Хуткая зарадка на трасе М',
+            'Суперхуткія зарадныя станцыі',
+            'Зарадка электрамабіля CCS Combo 2, зарадка CHAdeMO, зарадка GBT'
         ],
         listOfExpenses: [
             {
                 power: '0,49 BYN',
-                title: 'Зарядка на быстрых зарядных станциях',
-                watt: 'до 50 кВт*',
-                desc: 'Быстрые зарядные станции около торговых центров, вокзалов, мест притяжения где удобно оставить автомобиль для зарядки до 1 часа.'
+                title: 'Зарадка на хуткіх зарадных станцыях',
+                watt: 'да 50 кВт*',
+                desc: 'Хуткія зарадныя станцыі каля гандлёвых цэнтраў, вакзалаў, месцаў прыцягнення, дзе зручна пакінуць аўтамабіль для зарадкі да 1 гадзіны.'
             },
             {
                 power: '0,49 BYN',
-                title: 'Ускоренная зарядка',
-                watt: 'до 150 кВт*',
-                desc: 'Зарядка в городе и на трассе позволяющая получить необходимое количество энергии еще быстрее.'
+                title: 'Паскораная зарадка',
+                watt: 'да 150 кВт*',
+                desc: 'Зарадка ў горадзе і на трасе, якая дазваляе атрымаць неабходную колькасць энергіі яшчэ хутчэй.'
             },
             {
                 power: '0,49 BYN',
-                title: 'Супербыстрые зарядные станции',
-                watt: 'до 350 кВт*',
-                desc: 'Зарядка в городе и на трассе, где скорость зарядки должна быть максимальной. Супербыстрые зарядные станции которые позволяют заряжать электромобиль также быстро как на АЗС.'
+                title: 'Суперхуткія зарадныя станцыі',
+                watt: 'да 350 кВт*',
+                desc: 'Зарадка ў горадзе і на трасе, дзе хуткасць зарадкі павінна быць максімальнай. Суперхуткія зарадныя станцыі, якія дазваляюць зараджаць электрамабіль так жа хутка, як на АЗС.'
             }
         ]
     },
@@ -47,16 +48,16 @@ const tableInfo = [
         title: 'Маланка Mode 3 (AC)',
         power: '0,40 BYN',
         listOfBenefits: [
-            'Медленные зарядные станции для зарядки электромобилей',
-            'Располагаются на парковках в местах долговременного пребывания электромобиля',
-            'Зарядные коннектора Type 2, розетка Type 2'
+            'Павольныя зарадныя станцыі для зарадкі электрамабіляў',
+            'Размяшчаюцца на паркоўках у месцах доўгачасовага знаходжання электрамабіля',
+            'Зарадныя канектары Type 2, разетка Type 2'
         ],
         listOfExpenses: [
             {
                 power: '0,40 BYN',
-                title: 'Зарядка на медленных зарядных станциях',
-                watt: 'до 22 кВт*',
-                desc: 'Зарядные станции, расположенные там, где Вы проводите большой промежуток времени. Работа, дом. Паркинги бизнес-центров, многоуровневые и наземные. Там, где удобно оставить электромобиль.'
+                title: 'Зарадка на павольных зарадных станцыях',
+                watt: 'да 22 кВт*',
+                desc: 'Зарадныя станцыі, размешчаныя там, дзе Вы праводзіце вялікі прамежак часу. Праца, дом. Паркінгі бізнес-цэнтраў, шматузроўневыя і наземныя. Там, дзе зручна пакінуць электрамабіль.'
             }
         ]
     }
@@ -64,25 +65,26 @@ const tableInfo = [
 
 const paymentMenu = [
     {
-        title: 'Внутренний баланс пользователя в приложении Malanka New',
-        firstText: 'Внутренний баланс – специальный счет Пользователя в приложении. На нем отражается количество средств, которыми Пользователь может воспользоваться для оплаты услуг.',
-        listHeader: 'Пополнение внутреннего баланса аккаунта Маланка:',
+        title: 'Унутраны баланс карыстальніка ў дадатку Malanka New',
+        firstText: 'Унутраны баланс – спецыяльны рахунак Карыстальніка ў дадатку. На ім адлюстроўваецца колькасць сродкаў, якімі Карыстальнік можа скарыстацца для аплаты паслуг.',
+        listHeader: 'Папаўненне ўнутранага балансу акаўнта Маланка:',
         list: [
-            'Зайти в пункт меню «Платежи»',
-            'Выбрать сумму для пополнения',
-            'Нажать кнопку «Пополнить»',
-            'Выбрать банковскую карту для пополнения внутреннего баланса'
+            'Зайсці ў пункт меню «Плацяжы»',
+            'Выбраць суму для папаўнення',
+            'Націснуць кнопку «Папоўніць»',
+            'Выбраць банкаўскую карту для папаўнення ўнутранага балансу'
         ],
-        secondText: 'После вышеописанных действий внутренний баланс пополнится на выбранную сумму. При данном типе оплаты, преавторизация средств с Вашей платежной карты ОТСУТСТВУЕТ.'
+        secondText: 'Пасля вышэйапісаных дзеянняў унутраны баланс папоўніцца на выбраную суму. Пры дадзеным тыпе аплаты прэаўтарызацыя сродкаў з Вашай плацежнай карты АДСУТНІЧАЕ.'
     },
     {
-        title: 'Преавторизация средств пользователя в приложении Malanka New',
-        firstText: 'Сумма в 25 BYN временно резервируются на Вашей платёжной карте на время зарядной сессии. По завершении зарядной сессии разница между суммой резервирования и стоимостью вашей зарядной сессии будет возвращена не позднее 72 часов с момента резервирования.',
-    },
-]
+        title: 'Прэаўтарызацыя сродкаў карыстальніка ў дадатку Malanka New',
+        firstText: 'Сума ў 25 BYN часова рэзервуецца на вашай плацежнай карце на час зараднай сесіі. Па завяршэнні зараднай сесіі розніца паміж сумай рэзервавання і коштам вашай зараднай сесіі будзе вернута не пазней за 72 гадзіны з моманту рэзервавання.',
+    }
+];
 
 export const Price = () => {
-    const { language } = useSelector(store => store.localLanguage);
+    const {userInfo} = useSelector((store) => store.authAdmin);
+    const {language} = useSelector(store => store.localLanguage);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -92,24 +94,24 @@ export const Price = () => {
     const loadPage = () => {
         const main = document.querySelector('main');
 
-        handlerPageData().getContent(50, 3)
+        handlerPageData().getContent(32, 1)
             .then(result => {
                 const parser = new DOMParser();
                 const page = parser.parseFromString(result, 'text/html').querySelector('main');
                 convertLink(page.querySelectorAll('a.btn-green'), navigate);
                 convertLink(page.querySelectorAll('a.btn-green-outline'), navigate);
                 main.innerHTML = page.innerHTML;
-                addDropdownEvent();
+                addEvents();
             })
     }
 
-    const addDropdownEvent = () => {
+    const addEvents = () => {
         const faqBlockCategory = document.querySelectorAll('.payment-faq__dropdown-title');
         faqBlockCategory.forEach(category => {
             category.addEventListener('click', (e) => {
                 faqBlockCategory.forEach(el => {
-                    if (e.target.parentElement.dataset.id === el.parentElement.dataset.id || e.currentTarget.parentElement.dataset.id === el.parentElement.dataset.id) {
-                        if (el.parentElement.classList.contains('open') && e.target.parentElement === category.parentElement || el.parentElement.classList.contains('open') && e.currentTarget.parentElement === category.parentElement) {
+                    if (e.currentTarget.parentElement.dataset.id === el.parentElement.dataset.id || el.parentElement.children[1].contains(e.target)) {
+                        if (el.parentElement.classList.contains('open')) {
                             el.parentElement.classList.remove('open');
                         } else {
                             el.parentElement.classList.add('open');
@@ -123,11 +125,11 @@ export const Price = () => {
     }
 
     return (
-        <main className='price-page' data-id='50' data-count='3'>
-            <div className='pt-16 block'>
-                <Breadcrumbs link={{ name: 'Цена', path: 'price' }} />
+        <main className='price-page' data-id='32' data-count='1'>
+            {/* <div className='pt-16 block'>
+                <Breadcrumbs link={{name: 'Цана', path: 'price'}} />
                 <div className='container'>
-                    <h2 className='mb-32'>Цена</h2>
+                    <h2 className='mb-32'>Цана</h2>
                     <section className='price-page__table mb-16'>
                         {
                             tableInfo.map((table, i) => (
@@ -135,10 +137,10 @@ export const Price = () => {
                             ))
                         }
                     </section>
-                    <p className='mb-64 subscription'>* мощность зарядной сессии зависит от многих параметров, таких как модель электромобиля, температура батареи, степень деградации батареи и т.д. пожалуйста, внимательно ознакомьтесь с руководством по эксплуатации Вашего электромобиля</p>
-                    <Link to='/calculator' className='btn-green mb-64 center'>Рассчитать экономию</Link>
-                    <h3 className='mb-8'>Оплата</h3>
-                    <p className='regular-text mb-32'>Для вашего удобства мы предлагаем два вида оплаты зарядной сессии</p>
+                    <p className='mb-64 subscription'>* магутнасць зараднай сесіі залежыць ад многіх параметраў, такіх як мадэль электрамабіля, тэмпература батарэі, ступень дэградацыі батарэі і г. д. Калі ласка, уважліва азнаёмцеся з інструкцыяй па эксплуатацыі Вашага электрамабіля.</p>
+                    <Link to='/calculator' className='btn-green mb-64 center'>Разлічыць эканомію</Link>
+                    <h3 className='mb-8'>Аплата</h3>
+                    <p className='regular-text'>Для вашай зручнасці мы прапануем два віды аплаты зараднай сесіі</p>
                     <div className='payment-faq'>
                         {paymentMenu.map((item, i) => (
                             <div className='payment-faq__dropdown' data-id={i + 1} key={i}>
@@ -161,12 +163,12 @@ export const Price = () => {
                     </div>
                     <div className='flex-wrapper block'>
                         <div>
-                            <h3 className='mb-16'>Зарядка с помощью приложения Malanka New</h3>
-                            <h4 className='medium mb-16'>Приложение Маланка - Ваш пропуск в мир будущего. Полный контроль процесса зарядки электромобиля. Скачайте и откройте для себя способ заправки 21 века!</h4>
+                            <h3 className='mb-16'>Зарадка з дапамогай дадатка Malanka New</h3>
+                            <h4 className='medium mb-16'>Дадатак Маланка – Ваш пропуск у свет будучыні. Поўны кантроль працэсу зарадкі электрамабіля. Запампуйце і адкрыйце для сябе спосаб запраўкі 21 стагоддзя!</h4>
                             <ul className='mb-32'>
-                                <li className='list-text'>Следите за состоянием зарядного устройства и управляйте им удаленно с мобильного телефона или web-портала</li>
-                                <li className='list-text'>Просматривайте статистику зарядки в реальном времени и по завершении зарядной сессии</li>
-                                <li className='list-text'>Контролируйте потребление электроэнергии и расходы с помощью графиков и диаграмм</li>
+                                <li className='list-text'>Сачыце за станам зараднай прылады і кіруйце ёю аддалена з мабільнага тэлефона або web-партала</li>
+                                <li className='list-text'>Праглядайце статыстыку зарадкі ў рэальным часе і па завяршэнні зараднай сесіі</li>
+                                <li className='list-text'>Кантралюйце спажыванне электраэнергіі і выдаткі з дапамогай графікаў і дыяграм</li>
                             </ul>
                             <AppLinks />
                         </div>
@@ -177,12 +179,12 @@ export const Price = () => {
             <div className='price-page__footer'>
                 <div className='wrapper'>
                     <div>
-                        <h3 className='mb-16'>Остались вопросы?</h3>
-                        <p className='regular-text'>Пожалуйста, посетите раздел сайта Маланка который содержит ответы на все, что связано с процессом зарядки электромобиля и даже больше.</p>
+                        <h3 className='mb-16'>Засталіся пытанні?</h3>
+                        <p className='regular-text'>Калі ласка, наведайце раздзел сайта Маланка, які змяшчае адказы на ўсё, што звязана з працэсам зарадкі электрамабіля і нават больш.</p>
                     </div>
-                    <Link to='/help' className='btn-green-outline'>Как зарядиться</Link>
+                    <Link to='/help' className='btn-green-outline'>Як зарадзіцца</Link>
                 </div>
-            </div>
+            </div> */}
         </main >
     )
 }

@@ -23,7 +23,7 @@ export const AdminNewsPageStyled = styled.form`
         padding-bottom: 64px;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         padding-bottom: 32px;
     }
 `;
@@ -32,7 +32,7 @@ export const AdminNewsPageContentStyled = styled.div`
     max-width: 1352px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding:  0 15px;
 `;
 
 export const AdminNewsPageDateStyled = styled.p`
@@ -45,8 +45,7 @@ export const AdminNewsPageDateStyled = styled.p`
 export const AdminNewsPageContentPosStyled = styled.div`
     display: grid;
     grid-temlate-column: 100%;
-    padding-top: 32px;
-    gap: 32px;
+    padding-top: 40px;
 `;
 
 export const ParagraphDtos = styled.input`
@@ -80,7 +79,7 @@ export const AdminNewsPageControlPanelStyled = styled(FlexWrap)`
         height: 50px;
         font-size: 16px;
         font-weight: 600;
-        background: #F4F4FD;
+        background: #FFF;
         border-radius: 10px;
         padding: 0 10px;
 
@@ -96,7 +95,7 @@ export const AdminNewsPageControlPanelStyled = styled(FlexWrap)`
 `;
 
 export const AdminNewsPageTextareaStyled = styled.textarea`
-    font-weight: ${props => props.weight};
+    font-weight: ${props => +props.weight};
     font-size: ${props => props.size}px;
     font-style: ${props => props.fontStyle};
     line-height: 1.5;
@@ -114,6 +113,7 @@ export const ContentEditControlContainerStyled = styled.div`
     position: relative;
     grid-row: ${props => props.row};
     // overflow: hidden;
+    margin-bottom: ${props => props.marginBottom}px;
 
     button {
             display: flex;
@@ -124,7 +124,7 @@ export const ContentEditControlContainerStyled = styled.div`
     &:hover {
         >div {
             opacity: 1;
-            background: linear-gradient(271.12deg, rgb(111, 190, 110) 30%, rgba(139, 235, 138, 0) 100%);
+            background: linear-gradient(271.12deg, rgb(111, 190, 110) 0%, rgb(111, 190, 110) 60%, rgba(139, 235, 138, 0) 100%);
         }
         button {
             opacity: 1;
@@ -151,7 +151,7 @@ export const ContentEditControlStyled = styled(FlexWrap)`
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(-100%);
+    transform: translateY(-30px);
     opacity: 0;
     transition: all .2s;
     border-radius: 15px;
@@ -164,6 +164,19 @@ export const ContentEditControlStyled = styled(FlexWrap)`
 
     option {
         color: #000;
+    }
+
+    input {
+        max-width: 50px;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+
+        input {
+            margin-left: 16px;
+        }
     }
 `;
 

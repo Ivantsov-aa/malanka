@@ -1,73 +1,115 @@
-import { useEffect, useState } from "react";
-import { MainBlock } from "./main/main-block"
-import { MainMap } from "./main/main-map"
-import { MainNews } from "./main/main-news"
-import { MainTitle } from "./main/main-title"
-import { useSelector } from "react-redux";
-import { handlerPageData } from "../services/handlerPageData";
-import { useNavigate } from "react-router-dom";
-import { convertLink } from "../services/convertLink";
-
-const blockContent = {
-    first: {
-        title: 'У будучыню разам',
-        list: [
-            'Стварыць уласную сетку зарадных станцый "пад ключ"? Ваша станцыя ў сетцы Маланка? Уласны бізнес па зарадцы электрамабіляў або проста ўсталяваць зарадную станцыю для супрацоўнікаў і кліентаў? Мы ведаем, што і як правільна!',
-            'Комплексныя пакетныя рашэнні па інтэграцыі, арганізацыя білінгу, дыспетчарызацыя званкоў карыстальнікаў ЭЗС і тэхнічнае абслугоўванне. Кансалтынг усталявання станцыі, аптымальнай магутнасці, акупнасці і болей.',
-        ],
-        imgPath: '/images/main-1.png',
-        link: {
-            name: 'Стаць партнёрам',
-            path: './partner'
-        }
-    },
-    second: {
-        title: 'Магазін безаператарнага гандлю',
-        text: 'Зарадзіў электрамабіль – зарадзі сябе! Спосаб купляння будучыні даступны з Маланка ўжо сёння. Безаператарны магазін аўтаномнага гандлю Malanka shop 247. Для Вас свежая кава, закускі і ўсё неабходнае для папаўнення запасу калорый і не толькі.',
-        list: null,
-        imgPath: '/images/main-2.png',
-        link: {
-            name: 'Malanka shop 247',
-            path: './shop247'
-        }
-    }
-};
+import {useEffect, useState} from "react";
+import {MainBlock} from "./main/main-block"
+import {MainMap} from "./main/main-map"
+import {MainNews} from "./main/main-news"
+import {MainTitle} from "./main/main-title"
+import {useSelector} from "react-redux";
+import {handlerPageData} from "../services/handlerPageData";
+import {useNavigate} from "react-router-dom";
+import {convertLink} from "../services/convertLink";
+import {url} from "./admin/AuthForm/AuthForm";
 
 const defaultState = {
     center: [53.902292, 27.561821],
     zoom: 9,
-    controls: ["zoomControl", "fullscreenControl", "searchControl"],
+    controls: ["zoomControl", "fullscreenControl", "geolocationControl"]
 };
 
 let map;
 let script;
+let clientSection;
 
 export const Main = () => {
-    const { language } = useSelector(store => store.localLanguage);
+    const {language} = useSelector(store => store.localLanguage);
+    const {isLogged, userInfo} = useSelector((store) => store.authAdmin);
     const navigate = useNavigate();
 
     useEffect(() => {
-        window.addEventListener('scroll', scrollFunc);
-
-        return () => {
-            window.removeEventListener('scroll', scrollFunc);
-        }
-    }, []);
-
-    useEffect(() => {
         loadPage();
+        loadNews(language === 'RU' ? 'RUS' : (language === 'EN' ? 'ENG' : 'BEL'));
     }, [language]);
+
+    const loadNews = async (language) => {
+        await fetch(`${url}/article?language=${language}&page=0`)
+            .then(response => response.json())
+            .then(result => {
+                if (result.message) {
+                    loadNews('RUS');
+                } else {
+                    handleToggleTabs(result.slice(0, 3));
+                }
+            })
+    }
+
+    const blockContent = {
+        first: {
+            title: language === 'RU' ?
+                'В будущее вместе'
+                :
+                (language === 'EN' ?
+                    'Together in future'
+                    :
+                    'У будучыню разам'
+                ),
+            list: [
+                // 'Создать собственную сеть зарядных станций «под ключ»? Ваша станция в сети Маланка? Собственный бизнес по зарядке электромобилей или просто установить зарядную станцию для сотрудников и клиентов? Мы знаем, что и как правильно!',
+                // 'To launch your own electric car charging network on a “turnkey” basis? Your station within Malanka network? Your own electric car charging business or just to install a charging station for employees or clients? We know how to do the right thing!',
+                'Стварыць уласную сетку зарадных станцый "пад ключ"? Ваша станцыя ў сетцы Маланка? Уласны бізнес па зарадцы электрамабіляў або проста ўсталяваць зарадную станцыю для супрацоўнікаў і кліентаў? Мы ведаем, што і як правільна!',
+
+                // 'Комплексные пакетные решения по интеграции, организация биллинга, диспетчеризация звонков пользователей ЭЗС и техническое обслуживание. Консалтинг установки станции, оптимальной мощности, окупаемости и больше.',
+                // 'Comprehensive package integration solutions, billing, ECS-users call dispatch and maintenance. Consulting on the issues of installation of a charging station, optimal capacity, return on investment and more.',
+                'Комплексныя пакетныя рашэнні па інтэграцыі, арганізацыя білінгу, дыспетчарызацыя званкоў карыстальнікаў ЭЗС і тэхнічнае абслугоўванне. Кансалтынг усталявання станцыі, аптымальнай магутнасці, акупнасці і болей.',
+            ],
+            imgPath: '/images/main-1.png',
+            link: {
+                name: language === 'RU' ?
+                    ' Стать партнером'
+                    :
+                    (language === 'EN' ?
+                        'Become a partner'
+                        :
+                        'Стаць партнёрам'
+                    ),
+                path: './partner'
+            }
+        },
+        second: {
+            title: language === 'RU' ?
+                'Магазин безоператорной торговли'
+                :
+                (language === 'EN' ?
+                    'A cashierless shop'
+                    :
+                    'Магазін безаператарнага гандлю'
+                ),
+            text: language === 'RU' ?
+                'Зарядил электромобиль – заряди себя! Способ покупки будущего доступен с Маланка уже сегодня. Безоператорный магазин автономной торговли Malanka shop 247. Для Вас свежий кофе, закуски и все необходимое для пополнения запаса калорий и не только.'
+                :
+                (language === 'EN' ?
+                    'Charged your electric car – charge yourself! Purchasing of the future is already available with Malanka. Cashierless automated торговли Malanka shop 247. Fresh coffee, snacks and all you need to refresh yourself and even more for you.'
+                    :
+                    'Зарадзіў электрамабіль – зарадзі сябе! Спосаб купляння будучыні даступны з Маланка ўжо сёння. Безаператарны магазін аўтаномнага гандлю Malanka shop 247. Для Вас свежая кава, закускі і ўсё неабходнае для папаўнення запасу калорый і не толькі.'
+                ),
+            list: null,
+            imgPath: '/images/main-2.png',
+            link: {
+                name: 'Malanka shop 247',
+                path: './shop247'
+            }
+        }
+    };
 
     const loadPage = () => {
         const main = document.querySelector('main');
 
-        handlerPageData().getContent(34, 1)
+        handlerPageData().getContent(29, 1)
             .then(result => {
                 const parser = new DOMParser();
                 const page = parser.parseFromString(result, 'text/html').querySelector('main');
                 page.querySelector('.main__title-text').children[2].classList.add('app-links');
                 convertLink(page.querySelectorAll('a.btn-green'), navigate);
                 main.innerHTML = page.innerHTML;
+                document.querySelector(".title__image img").style.transform = "translate(0, 0) scale(1)";
                 loadMap();
             })
     }
@@ -75,15 +117,28 @@ export const Main = () => {
     const scrollFunc = () => {
         const titleImage = document.querySelector('.title__image img');
         let scrollTop = window.scrollY;
-        const { height } = titleImage.getBoundingClientRect();
+        const {height} = titleImage.getBoundingClientRect();
         titleImage.style.transform = `translate(0, -${scrollTop / 5}px) scale(${(((height - (scrollTop / 5)) / height))})`;
     }
 
     const init = (ymaps, placemarks) => {
+        const searchControl = new ymaps.control.SearchControl({
+            options: {
+                fitMaxWidth: true,
+                maxWidth: ['small', 'large'],
+                size: ['small', 'large'],
+                provider: 'yandex#search'
+            }
+        });
+
         map = new ymaps.Map("map", defaultState);
+        map.controls.add(searchControl);
         const objectManager = new ymaps.ObjectManager();
         objectManager.add(placemarks);
         map.geoObjects.add(objectManager);
+        map.geoObjects.events.add('click', () => {
+            window.open('https://customer.malankabn.by/map', '_blank');
+        })
 
         return map;
     }
@@ -131,7 +186,7 @@ export const Main = () => {
 
         script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = 'https://api-maps.yandex.ru/2.1/?onload=init_' +
+        script.src = 'https://api-maps.yandex.ru/2.1?apikey=8334e7a6-6bb1-44c2-a061-4d1f8662219d&onload=init_' +
             (language.toLowerCase()) +
             '&lang=' +
             (language === 'BY' ? 'ru' : language.toLowerCase()) +
@@ -145,13 +200,57 @@ export const Main = () => {
         }
     }
 
+    const handleToggleTabs = (news) => {
+        const tabs = document.querySelectorAll('.news__toggle button');
+        const feed = document.querySelector('.news__feed');
+
+        tabs[0].addEventListener('click', () => {
+            if (clientSection) {
+                feed.innerHTML = '';
+                feed.innerHTML = clientSection;
+            }
+            tabs[0].classList.add('active');
+            tabs[1].classList.remove('active');
+            convertLink('', navigate, 'news');
+        })
+
+        tabs[1].addEventListener('click', () => {
+            let newsFeed;
+            news.forEach(item => {
+                const coverImage = item.imageDtos.map(el => (
+                    el.imageType === "MAIN" && `<img src='${url}${`/image/${el.id}`}' alt="news-cover" />`)
+                ).filter(el => el);
+                newsFeed += `<a class="news__link" href=${'/news/' + item.id}>
+                    <div class="img__wrapper">
+                        ${item.imageDtos.length > 0 ?
+                        coverImage
+                        :
+                        `<img src='/images/main-2.png' alt="news-cover" />`
+                    }   
+                    </div>
+                    <h5>${item.title}</h5>
+                </a>`
+            })
+
+            if (!clientSection) {
+                clientSection = feed.innerHTML;
+            }
+
+            feed.innerHTML = '';
+            tabs[1].classList.add('active');
+            tabs[0].classList.remove('active');
+            feed.innerHTML = newsFeed.replace('undefined', '');
+            convertLink('', navigate, 'news');
+        })
+    }
+
     return (
-        <main className='main-page' data-id='34' data-count='1'>
-            <MainTitle />
-            <MainMap />
-            <MainBlock {...blockContent.first} />
-            <MainNews />
-            <MainBlock {...blockContent.second} />
+        <main className='main-page' data-id='29' data-count='1'>
+            {/* <MainTitle language={language} />
+            <MainMap language={language} />
+            <MainBlock {...blockContent.first} language={language} />
+            <MainNews language={language} />
+            <MainBlock {...blockContent.second} language={language} /> */}
         </main>
     )
 }

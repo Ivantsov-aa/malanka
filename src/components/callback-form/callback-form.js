@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom"
-import { Select } from "../select/select"
-import { FlexWrap } from "../FlexWrap/FlexWrap"
-import { useSelector } from "react-redux";
+import {Link} from "react-router-dom"
+import {Select} from "../select/select"
+import {FlexWrap} from "../FlexWrap/FlexWrap"
+import {useSelector} from "react-redux";
 
-export const CallbackForm = ({ formFields, formSelect, formCheckbox, formRadioBtns }) => {
-    const { language } = useSelector(store => store.localLanguage);
+export const CallbackForm = ({formFields, formSelect, formCheckbox, formRadioBtns}) => {
+    const {language} = useSelector(store => store.localLanguage);
+
     return (
         <form className='callback-form'>
             {!formFields ?
                 <>
                     <input type='text' placeholder={language === 'RU' ? 'Ваше имя' : (language === 'EN' ? 'Your name' : 'Ваша імя')} />
-                    <input type='text' pattern={/[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/gi} placeholder={language === 'RU' ? 'Электронная почта' : (language === 'EN' ? 'E-mail' : 'Электронная пошта')} />
+                    <input type='text' placeholder={language === 'RU' ? 'Электронная почта' : (language === 'EN' ? 'E-mail' : 'Электронная пошта')} />
                 </>
                 :
                 formFields.map((field, i) => (
@@ -53,7 +54,7 @@ export const CallbackForm = ({ formFields, formSelect, formCheckbox, formRadioBt
                     </div>
                 ))}
             </div>}
-            <input type='checkbox' id='personal-agreement' />
+            <input type='checkbox' id='personal-agreement' required />
             <label htmlFor='personal-agreement'>
                 <span>
                     {language === 'RU' ?

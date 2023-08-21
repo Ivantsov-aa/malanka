@@ -30,7 +30,32 @@ const pagesList = [
         title: 'Свяжитесь с нами',
         preview: '/images/admin/contact-us.webp',
         path: '../contact-us'
-    }
+    },
+    {
+        title: 'Shop247',
+        preview: '/images/admin/shop247.webp',
+        path: '../shop247'
+    },
+    {
+        title: 'Реклама',
+        preview: '/images/admin/advertising.webp',
+        path: '../advertising'
+    },
+    {
+        title: 'Стать партнёром',
+        preview: '/images/admin/partner.webp',
+        path: '../partner'
+    },
+    {
+        title: 'Калькулятор стоимости',
+        preview: '/images/admin/calculator.webp',
+        path: '../calculator'
+    },
+    {
+        title: 'Для юридических лиц',
+        preview: '/images/admin/individual.webp',
+        path: '../individual'
+    },
 ]
 
 export const AdminPagesList = () => {

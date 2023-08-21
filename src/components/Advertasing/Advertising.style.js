@@ -131,6 +131,7 @@ export const AdvertisingContainer = styled.main`
 
         button {
             margin-top: 16px;
+            gap: 12px;
         }
 
         @media (max-width: 1400px) {
@@ -179,7 +180,7 @@ export const AdvertisingContainer = styled.main`
         padding-right: 261.5px;
 
         @media (max-width: 1024px) {
-            padding: 0 20px;
+            padding:  0 15px;
         }
     }
 `;

@@ -1,10 +1,9 @@
 .breadcrumbs {
     @include block-pos;
-    margin-top: 16px;
 
     a,
     span {
-        @include font-params(400, 14px, 17px);
+        @include font-params(500, 14px, 17px);
         color: #7A7A95;
 
         &::after {

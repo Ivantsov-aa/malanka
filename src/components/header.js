@@ -1,10 +1,10 @@
-import { useRef, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import {useRef, useState} from "react"
+import {Link, useLocation} from "react-router-dom"
 import Button from "./Button/button"
-import { HeaderDropdown } from "./header/header-dropdown"
-import { FlexWrap } from "./FlexWrap/FlexWrap"
-import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import {HeaderDropdown} from "./header/header-dropdown"
+import {FlexWrap} from "./FlexWrap/FlexWrap"
+import {useEffect} from "react"
+import {useSelector} from "react-redux"
 
 const navBar = [
     {
@@ -29,15 +29,16 @@ const navBar = [
     }
 ]
 
-export const Header = ({ nav, admin }) => {
+export const Header = ({nav, admin}) => {
     const [dropdownState, setDropdownState] = useState(false);
     const dropdownRef = useRef();
     const burgerRef = useRef();
     const location = useLocation();
-    const { language } = useSelector(store => store.localLanguage);
+    const {language} = useSelector(store => store.localLanguage);
+    const {isLogged} = useSelector((store) => store.authAdmin);
 
     return (
-        <header className={`header ${dropdownState ? 'active' : ''}`}>
+        <header className={`header ${dropdownState ? 'active' : ''} ${isLogged ? "admin" : ""}`}>
             <div className='header__row'>
                 <Link to={`${admin ? '.' : ''}/`} className='logo__wrapper'>
                     <img src='/images/svg/logo.svg' alt='logo' />
@@ -66,7 +67,7 @@ export const Header = ({ nav, admin }) => {
                     </ul>
                 </nav>
                 <div className='header__btns'>
-                    <Button primary>{
+                    <a href="https://customer.malankabn.by/map" className="btn-green" target="_blank">{
                         language === 'RU' ?
                             'Зарядись онлайн'
                             :
@@ -76,7 +77,7 @@ export const Header = ({ nav, admin }) => {
                                     :
                                     'Зарадзіся анлайн'
                             )
-                    }</Button>
+                    }</a>
                     <button
                         className={`header__burger ${dropdownState ? 'active' : ''}`}
                         onClick={() => {
@@ -93,7 +94,7 @@ export const Header = ({ nav, admin }) => {
             </div>
             <div className='header__row header__dropdown' ref={dropdownRef}>
                 <FlexWrap className='flex' justify='space-between' gap={50}>
-                    {nav && <HeaderDropdown burgerRef={burgerRef} dropdownRef={dropdownRef} setDropdownState={setDropdownState} admin={admin} {...nav} />}
+                    {nav && nav.dropdown && <HeaderDropdown burgerRef={burgerRef} dropdownRef={dropdownRef} setDropdownState={setDropdownState} admin={admin} {...nav} />}
                 </FlexWrap>
             </div>
         </header>

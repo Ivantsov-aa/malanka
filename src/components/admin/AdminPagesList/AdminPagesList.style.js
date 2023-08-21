@@ -15,7 +15,6 @@ export const AdminPagesListContainer = styled.main`
 export const PagesListFlex = styled.section`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: 32px;
 `;
 
@@ -25,6 +24,8 @@ export const PagesListItem = styled(Link)`
     border-radius: 20px;
     padding: 16px;
     border: 1px solid #7A7A95;
+    display: flex;
+    flex-direction: column;
 
     @media (max-width: 768px) {
         max-width: calc((100% / 2) - 16px);
@@ -40,6 +41,7 @@ export const PagesListItem = styled(Link)`
         object-fit: cover;
         overflow-y: scroll;
         margin-bottom: 16px;
+        flex: 1;
 
         &::-webkit-scrollbar {
             display: none;
@@ -51,6 +53,6 @@ export const PagesListItem = styled(Link)`
     }
 
     &:hover {
-        border-color: #71C370;
+        border-color: #76D275;
     }
 `

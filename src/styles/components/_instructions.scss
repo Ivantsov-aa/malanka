@@ -1,118 +1,158 @@
 .instructions {
-    @include block-pos;
+  @include block-pos;
 
-    &__title {
-        @include flex-params(row, space-between, flex-end);
+  &__title {
+    @include flex-params(row, space-between, flex-end);
+    margin-bottom: 64px;
+
+    @media (max-width: 768px) {
+      align-items: unset;
+      margin-bottom: 24px;
+    }
+
+    p {
+      --lg-fs: 16px;
+      --md-fs: 16px;
+      --sm-fs: 15px;
+    
+      --lg-lh: 1.55;
+      --md-lh: 1.55;
+      --sm-lh: 1.55;
+    
+      @include font-params(400, var(--lg-fs), var(--lg-lh));
+    
+      @media (max-width: 1440px) {
+        @include font-params(400, var(--md-fs), var(--md-lh));
+      }
+    
+      @media (max-width: 768px) {
+        @include font-params(400, var(--sm-fs), var(--sm-lh));
+      }
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    a {
+      box-shadow: -6px -6px 16px #ffffff, 6px 6px 20px rgba(192, 192, 219, 0.7);
+    }
+  }
+
+  .instructions-list {
+    @include flex-params(row, space-between, flex-start);
+    height: 541px;
+    gap: 32px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      height: auto;
+    }
+
+    li {
+      align-items: flex-start;
+      max-width: calc((100% / 3) - 22px);
+      width: 100%;
+      height: 100%;
+
+      @media (max-width: 768px) {
+        max-width: 100%;
+      }
+
+      &::before {
+        display: none;
+        @include font-params(600, 16px, 24px);
+        background: #000;
+        color: #fff;
+        width: 100%;
+        max-width: 29px;
+        height: 29px;
+        border-radius: 50%;
+      }
+
+      div {
+        @include flex-params(column, space-between, center);
+        gap: 32px;
+        width: 100%;
+
+        .list-title {
+          @include flex-params(row, flex-start, center);
+          gap: 16px;
+        }
 
         p {
-            @include font-params(500, 22px, 33px);
-            margin-top: 16px;
+          --lg-fs: 18px;
+          --md-fs: 18px;
+          --sm-fs: 16px;
+
+          --lg-lh: 1.5;
+          --md-lh: 1.5;
+          --sm-lh: 1.45;
+
+          @include font-params(600, var(--lg-fs), var(--lg-lh));
+
+          @media (max-width: 1440px) {
+            @include font-params(600, var(--md-fs), var(--md-lh));
+          }
+
+          @media (max-width: 768px) {
+            @include font-params(700, var(--sm-fs), var(--sm-lh));
+          }
+
+          align-self: flex-start;
+
+          &.count {
+            @include flex-params(row, center, center);
+            color: #fff;
+            background: #000;
+            border-radius: 50%;
+            min-width: 29px;
+            max-width: 29px;
+            height: 29px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.5;
+          }
         }
 
-        @media (max-width: 767px) {
-            flex-direction: column;
-            gap: 20px;
+        img {
+          max-height: 444px;
+          object-fit: contain;
+          margin-left: -29px;
 
-            p {
-                @include font-params(500, 18px, 25px);
-            }
+          @media (max-width: 768px) {
+            max-height: 250px;
+            margin: 0;
+          }
         }
+      }
+
+      &:last-child {
+        position: relative;
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 100%;
+          max-width: 452px;
+          height: 100%;
+          max-height: 387px;
+          background: url("../../../public/images/news/support.png") no-repeat
+            center;
+          background-size: contain;
+          bottom: 35px;
+          left: -30%;
+          // transform: translateX(-90%);
+
+          @media (max-width: 768px) {
+            max-height: 220px;
+            left: -40%;
+          }
+        }
+      }
     }
-
-    .instructions-list {
-        @include flex-params(row, space-between, flex-start);
-        height: 541px;
-        gap: 32px;
-
-        @media (max-width: 767px) {
-            flex-direction: column;
-            height: auto;
-        }
-
-        li {
-            align-items: flex-start;
-            max-width: calc((100% / 3) - 22px);
-            width: 100%;
-            height: 100%;
-
-            @media (max-width: 767px) {
-                max-width: 100%;
-            }
-
-            &::before {
-                display: none;
-                @include font-params(600, 16px, 24px);
-                background: #000;
-                color: #fff;
-                width: 100%;
-                max-width: 29px;
-                height: 29px;
-                border-radius: 50%;
-            }
-
-            div {
-                @include flex-params(column, space-between, center);
-                gap: 32px;
-                width: 100%;
-
-                .list-title {
-                    @include flex-params(row, flex-start, center);
-                    gap: 16px;
-                }
-
-                p {
-                    @include font-params(400, 18px, 29px);
-                    align-self: flex-start;
-
-                    &.count {
-                        @include flex-params(row, center, center);
-                        color: #fff;
-                        background: #000;
-                        border-radius: 50%;
-                        min-width: 29px;
-                        max-width: 29px;
-                        height: 29px;
-                        font-weight: 600;
-                        font-size: 16px;
-                        line-height: 1.5;
-                    }
-                }
-
-                img {
-                    max-height: 444px;
-                    object-fit: contain;
-                    margin-left: -29px;
-
-                    @media (max-width: 767px) {
-                        max-height: 250px;
-                        margin: 0;
-                    }
-                }
-            }
-
-            &:last-child {
-                position: relative;
-
-                &::after {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    width: 100%;
-                    max-width: 452px;
-                    height: 100%;
-                    max-height: 387px;
-                    background: url('../../../public/images/news/support.png') no-repeat center;
-                    background-size: contain;
-                    bottom: 35px;
-                    left: -30%;
-                    // transform: translateX(-90%);
-
-                    @media (max-width: 767px) {
-                        max-height: 220px;
-                        left: -40%;
-                    }
-                }
-            }
-        }
-    }
+  }
 }

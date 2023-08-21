@@ -2,8 +2,8 @@ export const Result = `<div class='result'>
     <div class='result-chart'>
         <div class='chart-side'>
             <div class='space-between'>
-                <h4>Расход топлива</h4>
-                <p class='list-text'>Вид топлива: <span class='type-fuel'></span></p>
+                <h2>Расход топлива</h2>
+                <p class='tabs'>Вид топлива: <span class='type-fuel'></span></p>
             </div>
             <div>
                 <p class='axes-title'>BYN</p>
@@ -12,8 +12,8 @@ export const Result = `<div class='result'>
         </div>
         <div class='chart-side'>
             <div class='space-between'>
-                <h4>Расход электричества</h4>
-                <p class='list-text'>Тип зарядки: <span class='type-charge'></span></p>
+                <h2>Расход электричества</h2>
+                <p class='tabs'>Тип зарядки: <span class='type-charge'></span></p>
             </div>
             <div>
                 <p class='axes-title'>BYN</p>

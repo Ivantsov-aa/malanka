@@ -62,7 +62,7 @@ export const Partners = () => {
     const loadPage = () => {
         const main = document.querySelector('main');
 
-        handlerPageData().getContent(58, 1)
+        handlerPageData().getContent(35, 1)
             .then(result => {
                 const parser = new DOMParser();
                 const page = parser.parseFromString(result, 'text/html').querySelector('main');
@@ -82,8 +82,8 @@ export const Partners = () => {
     }
 
     return (
-        <main className='partner' data-id='58' data-count='1'>
-            <Breadcrumbs currentPage='Стаць партнёрам' />
+        <main className='partner' data-id='35' data-count='1'>
+            {/* <Breadcrumbs currentPage='Стаць партнёрам' />
             <h2>Разам будуем будучыню</h2>
             <FlexWrap className='categories-container ph-20' justify='space-between'>
                 {directions.map(direction => (
@@ -100,7 +100,7 @@ export const Partners = () => {
                         </FlexWrap>
                     </button>
                 ))}
-            </FlexWrap>
+            </FlexWrap> */}
         </main>
     )
 }

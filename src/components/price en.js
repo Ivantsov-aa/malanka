@@ -123,7 +123,7 @@ export const Price = () => {
             <div className='pt-16 block'>
                 <Breadcrumbs link={{ name: 'Price', path: 'price' }} />
                 <div className='container'>
-                    <h2 className='mb-32'>Цена</h2>
+                    <h2 className='mb-32'>Price</h2>
                     <section className='price-page__table mb-16'>
                         {
                             tableInfo.map((table, i) => (

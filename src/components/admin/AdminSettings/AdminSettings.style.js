@@ -75,7 +75,7 @@ export const ErrorMessage = styled.p`
     z-index: -1;
     animation: showError .2s linear;
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         font-size: --font-size - 20%;
     }
 `;

@@ -1,4 +1,6 @@
+import {url} from '../components/admin/AuthForm/AuthForm';
 import { handlerLocalStorage } from './handlerLocalStorage';
+import {renameImageSources} from './sourceConvert';
 
 export const handlerPageData = () => {
     const getContent = async (id, count) => {
@@ -21,12 +23,12 @@ export const handlerPageData = () => {
 
         if (requestId) {
             let page;
-            await fetch(`http://89.223.71.123:8080/malanka/page/${requestId}`)
+            await fetch(`${url}/page/${requestId}`)
                 .then(response => response.json())
                 .then(result => page = result.body);
             
             if (page) {
-                return page;
+                return renameImageSources(page);
             }
         }
     }

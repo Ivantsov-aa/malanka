@@ -1,6 +1,6 @@
 .contact-us {
     .container {
-        padding-top: 64px;
+        padding-top: 40px;
     }
 
     .callback-form__wrapper {
@@ -11,6 +11,10 @@
             .flex-wrapper {
                 @include flex-params(row, space-between, flex-start);
                 gap: 32px;
+
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                }
 
                 h6 {
                     @include font-params(600, 16px, 24px);

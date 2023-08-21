@@ -1,266 +1,313 @@
 main {
-    .main__title-wrapper {
-        width: 100%;
-        min-height: calc(var(--device-height) * 100 - 74px);
+  .main__title-wrapper {
+    width: 100%;
+
+    @media (max-width: 1024px) {
+      position: relative;
+      top: 0;
+      overflow: hidden;
+
+      .title-bg {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      min-height: max-content;
+    }
+
+    .main__title {
+      @include block-pos;
+      display: flex;
+      grid-template-columns: repeat(2, calc(50% - 10px));
+      justify-content: space-between;
+      overflow: hidden;
+      height: 100%;
+      padding: 0 15px;
+      gap: 32px;
+
+      @media (max-width: 1024px) {
+        padding-top: 16px;
+        grid-template-columns: calc(70% - 10px) calc(30% - 10px);
+      }
+
+      @media (max-width: 768px) {
+        grid-template-columns: 100%;
+        align-items: center;
+        flex-direction: column;
+        @include pbBlock;
+        height: 100%;
+        max-height: max-content;
+      }
+
+      &-text {
+        padding-top: 197px;
+        max-width: 865px;
+
+        ul {
+          margin-bottom: 24px;
+        }
 
         @media (max-width: 1024px) {
-            position: relative;
-            top: 0;
-            overflow: hidden;
-
-            .title-bg {
-                display: none;
-            }
+          padding-top: 0;
         }
+      }
 
-        @media (max-width: 767px) {
-            min-height: calc(var(--device-height) * 100 - 58px);
-        }
-
-        .main__title {
-            @include block-pos;
-            display: grid;
-            grid-template-columns: repeat(2, calc(50% - 10px));
-            justify-content: space-between;
-            align-items: center;
-            overflow: hidden;
-            height: 100%;
-            padding: 0 20px;
-
-            @media (max-width: 1024px) {
-                padding-top: 32px;
-                grid-template-columns: calc(70% - 10px) calc(30% - 10px);
-            }
-
-            @media (max-width: 768px) {
-                grid-template-columns: 100%;
-                align-items: flex-start;
-                @include pbBlock;
-
-                &::before,
-                &::after {
-                    content: '';
-                    position: absolute;
-                    width: 360px;
-                    height: 360px;
-                    z-index: -1;
-                    border: 60px solid #00902a;
-                    border-radius: 50%;
-                }
-
-                &::before {
-                    left: -180px;
-                    top: -180px;
-                    border-color: #79b95780;
-                }
-
-                &::after {
-                    width: 300px;
-                    height: 300px;
-                    border: 40px solid #00902a;
-                    right: -150px;
-                    bottom: -150px;
-                }
-            }
-
-            &-text {
-                @media (max-width: 1024px) {
-                    padding-top: 32px;
-                }
-            }
-
-            .title__image {
-                max-height: calc(var(--device-height) * 100 - 74px);
-                position: relative;
-                width: 100%;
-                z-index: 0;
-
-                @media (max-width: 768px) {
-                    display: none;
-                }
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
-            }
-        }
-    }
-
-    .map__wrapper {
-        width: 100%;
+      .title__image {
         position: relative;
-        z-index: 1;
-        background: #fff;
-        transition: top .3s;
-        padding-top: 64px;
-        @include pbBlock;
+        width: 100%;
+        z-index: 0;
+        margin: 120px 0;
+        max-width: 600px;
 
-        &.active {
-            top: 0;
+        @media (max-width: 768px) {
+          // display: none;
+          margin: 0;
+          padding: 0 15px;
         }
 
-        @media (max-width: 767px) {
-            padding-top: 32px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  .map__wrapper {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    transition: top 0.3s;
+    padding-top: 128px;
+    @include pbBlock;
+
+    &.active {
+      top: 0;
+    }
+
+    @media (max-width: 768px) {
+      padding-top: 40px;
+    }
+
+    .map__container {
+      @include block-pos;
+      padding: 0 15px;
+    }
+
+    .map__title {
+      @include flex-params(column, space-between, flex-start);
+      flex-wrap: wrap;
+      gap: 24px;
+
+      div {
+        max-width: 1269px;
+      }
+    }
+
+    .main__map {
+      width: 100%;
+      height: 80vh;
+      max-height: 527px;
+
+      @media (max-width: 768px) {
+        max-height: 376px;
+      }
+    }
+  }
+
+  .main__block-wrapper {
+    background: #fff;
+    @include pbBlock;
+
+    .main__block {
+      @include block-pos;
+      padding: 0 15px;
+      display: grid;
+      grid-template-columns: repeat(2, calc(50% - 10px));
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        max-width: 689px;
+      }
+
+      ul {
+        margin-bottom: 24px;
+        
+        @media (max-width: 768px) {
+          margin-bottom: 32px;
+        }
+      }
+
+      p {
+        max-width: 689px;
+
+        &.mb-16 {
+          display: none;
         }
 
-        .map__container {
-            @include block-pos;
-            padding: 0 20px;
+        &.mb-32 {
+          margin-bottom: 24px;
+        }
+      }
+
+      img {
+        padding: 20px 83px;
+        padding-right: 0;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 6px;
+
+        @media (max-width: 768px) {
+          display: none;
         }
 
-        .map__title {
-            @include flex-params(row, space-between, flex-end);
-            flex-wrap: wrap;
-            gap: 20px;
+        &.mobile-img {
+          display: none;
 
-            @media (max-width: 1024px) {
-                gap: 16px;
-            }
-
-            div {
-                max-width: 1130px;
-            }
+          @media (max-width: 768px) {
+            display: block;
+            padding: 0;
+            margin-bottom: 32px;
+          }
         }
+      }
 
-        .main__map {
+      @media (max-width: 768px) {
+        padding-top: 40px;
+        grid-template-columns: 100%;
+
+        p {
+          margin-bottom: 32px;
+        }
+      }
+    }
+
+    &.second {
+      img {
+        max-width: 830px;
+        margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        img {
+          &.mobile-img {
+            display: block;
+            margin-bottom: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  .main__news-wrapper {
+    background: #fff;
+    @include pbBlock;
+
+    @media (max-width: 768px) {
+      padding-top: 40px;
+    }
+
+    .news {
+      @include block-pos;
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        max-width: 964px;
+        @media (max-width: 768px) {
+          margin-bottom: 24px;
+        }
+      }
+
+      &__toggle {
+        @include flex-params(row, flex-start, center);
+        gap: 16px;
+
+        @media (max-width: 500px) {
+          justify-content: space-between;
+
+          .btn-gray {
+            max-width: calc(50% - 10px);
+            @include font-params(700, 14px, 1.5);
+          }
+        }
+      }
+
+      &__feed {
+        @include flex-params(row, space-between, flex-start);
+        gap: 20px;
+        margin-bottom: 24px;
+
+        @media (max-width: 1240px) {
+          overflow-y: hidden;
+          overflow-x: scroll;
+          scrollbar-width: none;
+          margin-bottom: 16px;
+
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+        }
+      }
+
+      &__link {
+        width: calc((100% / 3) - 13px);
+        min-width: 250px;
+        overflow: hidden;
+
+        .img__wrapper {
+          width: 100%;
+          height: 364px;
+          overflow: hidden;
+          margin-bottom: 16px;
+          border-radius: 6px;
+
+          @media (max-width: 1240px) {
+            height: 220px;
+          }
+
+          img {
             width: 100%;
-            height: 80vh;
-
-            @media (max-width: 767px) {
-                height: 50vh;
-            }
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0.2s;
+            border-radius: 6px;
+          }
         }
-    }
 
-    .main__block-wrapper {
-        background: #fff;
-        @include pbBlock;
-
-        .main__block {
-            @include block-pos;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(2, calc(50% - 10px));
-            justify-content: space-between;
-            align-items: center;
-
-            h2 {
-                max-width: 689px;
-            }
-
-            p {
-                max-width: 689px;
-            }
-
+        @media (min-width: 1025px) {
+          &:hover {
             img {
-                width: 100%;
-                max-width: 830px;
-                object-fit: none;
+              transform: scale(1.5);
             }
-
-            @media (max-width: 767px) {
-                grid-template-columns: 100%;
-
-                img {
-                    display: none;
-                }
-            }
+          }
         }
+      }
+
+      .go-to-news {
+        align-self: flex-start;
+      }
     }
-
-    .main__news-wrapper {
-        background: #fff;
-        @include pbBlock;
-
-        .news {
-            @include block-pos;
-            padding: 0 20px;
-
-            h2 {
-                @media (max-width: 767px) {
-                    margin-bottom: 16px;
-                }
-            }
-
-            &__toggle {
-                @include flex-params(row, flex-start, center);
-                gap: 17px;
-
-                @media (max-width: 500px) {
-                    justify-content: space-between;
-
-                    .btn-gray {
-                        max-width: calc(50% - 10px);
-                    }
-                }
-            }
-
-            &__feed {
-                @include flex-params(row, space-between, flex-start);
-                gap: 20px;
-
-                @media (max-width: 1240px) {
-                    overflow-y: hidden;
-                    overflow-x: scroll;
-                    scrollbar-width: none;
-
-                    &::-webkit-scrollbar {
-                        width: 0;
-                    }
-                }
-            }
-
-            &__link {
-                width: calc((100% / 3) - 13px);
-                min-width: 250px;
-                overflow: hidden;
-
-                .img__wrapper {
-                    width: 100%;
-                    height: 364px;
-                    overflow: hidden;
-                    margin-bottom: 20px;
-                    border-radius: 6px;
-
-                    @media (max-width: 1240px) {
-                        height: 220px;
-                    }
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        transform: scale(1);
-                        transition: transform 0.2s;
-                        border-radius: 6px;
-                    }
-                }
-
-                @media (min-width: 1025px) {
-                    &:hover {
-                        img {
-                            transform: scale(1.5);
-                        }
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
 .focused {
-    position: relative;
+  position: relative;
 
-    &::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: rgba($color: #9EE2FF, $alpha: .5);
-    }
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba($color: #9ee2ff, $alpha: 0.5);
+  }
 }
