@@ -86,7 +86,8 @@ export const Charging = () => {
             .then(result => {
                 const parser = new DOMParser();
                 const page = parser.parseFromString(result, 'text/html').querySelector('main');
-                const button = document.querySelector('.play-btn');
+                const button = page.querySelector('.play-btn');
+
                 if (isLogged) {
                     convertLink(page.querySelectorAll('a'), navigate, `/admin/${userInfo.username}`);
                 } else {
