@@ -32,7 +32,7 @@ export const ParagraphDtos = ({
                                           ...item,
                                           style: {
                                               ...item.style,
-                                              family: "",
+                                              family: "Montserrat",
                                           },
                                       }
                                     : {
@@ -69,7 +69,7 @@ export const ParagraphDtos = ({
                                           ...item,
                                           style: {
                                               ...item.style,
-                                              family: "",
+                                              family: "Montserrat",
                                           },
                                       }
                                     : {

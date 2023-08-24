@@ -160,7 +160,7 @@ export const Advertising = ({ innerWidth }) => {
     };
 
     const zoomTargetImage = (e) => {
-        const { offsetX, offsetY } = e;
+        const { offsetX, offsetY, screenX, screenY } = e;
         const size = window.innerHeight / 3;
         let image = e.target;
         const zoomBg = document.querySelector(".zoom-bg");
@@ -170,6 +170,14 @@ export const Advertising = ({ innerWidth }) => {
             const canvas = document.querySelector("#canvas");
             canvas.style.top = `${offsetY - size}px`;
             canvas.style.left = `${offsetX - size}px`;
+            if (screenX < size) {
+                canvas.style.left = `${offsetX}px`;
+            }
+
+            if (screenY < size) {
+                canvas.style.top = `${offsetY}px`;
+            }
+
             canvas.style.display = "block";
             const ctx = canvas.getContext("2d");
             canvas.width = size;
@@ -177,7 +185,7 @@ export const Advertising = ({ innerWidth }) => {
             ctx.drawImage(
                 image,
                 -offsetX * 4 + size / 2,
-                -offsetY * 4 + size / 2,
+                -offsetY * 4 + offsetY / 2 + size / 4,
                 image.width * 4,
                 image.height * 4
             );

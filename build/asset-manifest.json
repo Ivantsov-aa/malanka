@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.92653164.css",
-    "main.js": "/static/js/main.ba62ef9c.js",
+    "main.js": "/static/js/main.1a9f8eb1.js",
     "static/media/support.png": "/static/media/support.60a49ab574193864db79.png",
     "static/media/bg-image.png": "/static/media/bg-image.5e302687b963bafbc2eb.png",
     "static/media/price-page-bg.png": "/static/media/price-page-bg.4b8b074a5530f99b06cf.png",
@@ -12,6 +12,6 @@
   },
   "entrypoints": [
     "static/css/main.92653164.css",
-    "static/js/main.ba62ef9c.js"
+    "static/js/main.1a9f8eb1.js"
   ]
 }

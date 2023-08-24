@@ -207,12 +207,12 @@ export const AdminNewsPage = ({ innerWidth }) => {
         const data = {
             title: titleArticle,
             preview: previewArticle,
-            marginBottom: 32,
             style: {
                 size: 15,
                 weight: "600",
                 family: "Montserrat",
                 alignment: "normal",
+                marginBottom: 32,
             },
         };
 
@@ -252,7 +252,8 @@ export const AdminNewsPage = ({ innerWidth }) => {
                             description: "Новость создана",
                         });
                     }
-                });
+                })
+                .catch((err) => console.log(err))
         } else {
             await fetch(
                 `${url}/article?language=${
