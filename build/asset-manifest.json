@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.3db109f0.css",
+    "main.css": "/static/css/main.a9422463.css",
     "main.js": "/static/js/main.1a9f8eb1.js",
     "static/media/support.png": "/static/media/support.60a49ab574193864db79.png",
     "static/media/bg-image.png": "/static/media/bg-image.5e302687b963bafbc2eb.png",
@@ -11,7 +11,7 @@
     "static/media/green-checked.svg": "/static/media/green-checked.828a27468b1d616fff7b.svg"
   },
   "entrypoints": [
-    "static/css/main.3db109f0.css",
+    "static/css/main.a9422463.css",
     "static/js/main.1a9f8eb1.js"
   ]
 }

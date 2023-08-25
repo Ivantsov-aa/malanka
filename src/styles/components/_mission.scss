@@ -56,9 +56,17 @@
         z-index: 1;
 
         @media (max-width: 768px) {
-            left: 50%;
-            top: 45px;
-            transform: translateX(-50%);
+            left: 20px;
+            top: 20px;
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
         }
     }
 
