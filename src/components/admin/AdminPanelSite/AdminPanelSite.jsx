@@ -140,8 +140,8 @@ export const AdminPanelSite = (props) => {
                 language === "RU"
                     ? id
                     : language === "EN"
-                    ? parseInt(id) + parseInt(count)
-                    : parseInt(id) + parseInt(count) + 1
+                    ? parseInt(id) + 1
+                    : parseInt(id) + 2
             }`,
             {
                 method: "PUT",

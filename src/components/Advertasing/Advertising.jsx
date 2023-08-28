@@ -166,29 +166,31 @@ export const Advertising = ({ innerWidth }) => {
         const zoomBg = document.querySelector(".zoom-bg");
         zoomBg.style.display = "flex";
 
-        if (image) {
-            const canvas = document.querySelector("#canvas");
-            canvas.style.top = `${offsetY - size}px`;
-            canvas.style.left = `${offsetX - size}px`;
-            if (screenX < size) {
-                canvas.style.left = `${offsetX}px`;
+        window.onload = function() {
+            if (image) {
+                const canvas = document.querySelector("#canvas");
+                canvas.style.top = `${offsetY - size}px`;
+                canvas.style.left = `${offsetX - size}px`;
+                if (screenX < size) {
+                    canvas.style.left = `${offsetX}px`;
+                }
+    
+                if (screenY < size) {
+                    canvas.style.top = `${offsetY}px`;
+                }
+    
+                canvas.style.display = "block";
+                const ctx = canvas.getContext("2d");
+                canvas.width = size;
+                canvas.height = size;
+                ctx.drawImage(
+                    image,
+                    -offsetX * 4 + size / 2,
+                    -offsetY * 4 + offsetY / 2 + size / 4,
+                    image.width * 4,
+                    image.height * 4
+                );
             }
-
-            if (screenY < size) {
-                canvas.style.top = `${offsetY}px`;
-            }
-
-            canvas.style.display = "block";
-            const ctx = canvas.getContext("2d");
-            canvas.width = size;
-            canvas.height = size;
-            ctx.drawImage(
-                image,
-                -offsetX * 4 + size / 2,
-                -offsetY * 4 + offsetY / 2 + size / 4,
-                image.width * 4,
-                image.height * 4
-            );
         }
     };
 

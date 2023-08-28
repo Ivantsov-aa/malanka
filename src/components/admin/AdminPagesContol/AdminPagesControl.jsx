@@ -176,7 +176,6 @@ export const AdminPagesControl = (props) => {
         }
 
         if (target.parentElement.tagName === "MAIN") {
-            console.log(e);
             setUploaderTarget({
                 target: target,
                 type: "image",

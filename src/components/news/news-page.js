@@ -72,9 +72,6 @@ export const NewsPage = ({pathname, innerWidth}) => {
             });
     }
 
-    console.log(prevNews);
-    console.log(nextNews);
-
     return (
         currentNews &&
         <main className="news-page">

@@ -122,7 +122,7 @@ export const NewsContent = ({innerWidth, currentPage, setCurrentPage, news, setN
                     </div>
                 })}
             </div>
-            {news.length && <Pagination pageQuantity={Math.ceil(news.length / (innerWidth < 768 ? 8 : 9))} current={currentPage} handleChosenPage={handleChosenPage} actionPrev={handlePrevPage} actionNext={handleNextPage} />}
+            {news.length ? <Pagination pageQuantity={Math.ceil(news.length / (innerWidth < 768 ? 8 : 9))} current={currentPage} handleChosenPage={handleChosenPage} actionPrev={handlePrevPage} actionNext={handleNextPage} /> : ""}
         </section >
     )
 }

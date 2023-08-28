@@ -27,7 +27,11 @@ export const AdminNews = (props) => {
         )
             .then((response) => response.json())
             .then((result) => {
-                setNews(result);
+                if (!result.message) {
+                    setNews(result);
+                } else {
+                    setNews([]);
+                }
             });
     };
 
