@@ -2,7 +2,7 @@ export const convertLink = (links, navigate, addPath) => {
     const main = document.querySelector('main');
 
     document.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' && main.contains(e.target) && e.target.href.includes(window.location.origin)) {
+        if (e.target.tagName === 'A' && main?.contains(e.target) && e.target.href.includes(window.location.origin)) {
             e.preventDefault();
 
             const href = e.target.href.split('/').pop();

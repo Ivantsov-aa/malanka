@@ -5,7 +5,7 @@ import {Select} from "../select/select";
 import {useSelector} from "react-redux";
 import {dateConverter} from "./news-title";
 import {url} from "../admin/AuthForm/AuthForm";
-import {NewsPageCloseButton} from "../admin/AdminNews/AdminNews.style";
+import {NewsPageCloseButton, NewsPageLangButtons} from "../admin/AdminNews/AdminNews.style";
 
 export const NewsContent = ({innerWidth, currentPage, setCurrentPage, news, setNews, onDeleteArticle}) => {
     const [sortValue, setSortValue] = useState(null);
@@ -115,9 +115,15 @@ export const NewsContent = ({innerWidth, currentPage, setCurrentPage, news, setN
                             <h5>{item.title}</h5>
                         </Link>
                         {
-                            isLogged && <NewsPageCloseButton onClick={() => handleDeleteArticle(item.id)}>
-                                <CloseSvg />
-                            </NewsPageCloseButton>
+                            isLogged && <>
+                                <NewsPageCloseButton onClick={() => handleDeleteArticle(item.id)}>
+                                    <CloseSvg />
+                                </NewsPageCloseButton>
+                                {language === "RU" && <NewsPageLangButtons>
+                                    <Link to="../article-create" state={{language: "EN", newsId: item.id}}>Eng</Link>
+                                    <Link to="../article-create" state={{language: "BE", newsId: item.id}}>Бел</Link>
+                                </NewsPageLangButtons>}
+                            </>
                         }
                     </div>
                 })}

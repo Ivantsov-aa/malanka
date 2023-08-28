@@ -18,11 +18,12 @@ import { ParagraphDtos } from "./components/ParagraphDtos";
 import { SimpleListDtos } from "./components/SimpleListDtos";
 import { ComplexListDtos } from "./components/ComplexListDtos";
 import { SliderDtos } from "./components/SliderDtos";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ImageDtos } from "./components/ImageDtos";
 import { VideoDtos } from "./components/VideoDtos";
 import { NotificationPopUp } from "../../NotificationPopUp/NotificationPopUp";
 import { url } from "../AuthForm/AuthForm";
+import { handleChange } from "../../../redux/slices/localSlice";
 
 const photos = [
     "/images/news/slider.png",
@@ -114,7 +115,7 @@ export const autosizeTextarea = (e) => {
     e.target.style.height = e.target.scrollHeight + "px";
 };
 
-export const AdminNewsPage = ({ innerWidth }) => {
+export const AdminNewsPage = ({state, innerWidth }) => {
     const [currentPos, setCurrentPos] = useState(1);
     const [templateRows, setTemplateRows] = useState([]);
     const [titleArticle, setTitleArticle] = useState("Заголовок новости");
@@ -134,9 +135,39 @@ export const AdminNewsPage = ({ innerWidth }) => {
     const [formDataImage, setFormDataImage] = useState(null);
     const [formDataSlider, setFormDataSlider] = useState([]);
     const [formDataVideo, setFormDataVideo] = useState(null);
+    const [mainMediaContent, setMainMediaContent] = useState(null);
 
     const { token } = useSelector((store) => store.authAdmin.userInfo);
     const { language } = useSelector((store) => store.localLanguage);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (state) {
+            state.language && dispatch(handleChange(state.language));
+            state.newsId && setCurrentNewsId(state.newsId);
+
+            loadRusVersion(state.newsId);
+        }
+    }, []);
+
+    const loadRusVersion = async (id) => {
+        await fetch(`${url}/article/${id}`)
+        .then(response => response.json())
+        .then(result => {
+            const templates = [...result.paragraphDtos, ...result.simpleListDtos, ...result.complexListDtos].map((temp) => {
+                delete temp.id;
+                delete temp.articleId;
+                return temp;
+            });
+
+            const lastPos = templates.sort((a, b) => b.position - a.position);
+            setCurrentPos(lastPos[0].position + 1);
+            setTitleArticle(result.title);
+            setPreviewArticle(result.preview);
+            setTemplateRows(templates);
+            setMainMediaContent({imageDtos: result.imageDtos, videoId: result.videoId});
+        });
+    }
 
     const uploadCover = (e) => {
         let reader = new FileReader();
@@ -265,7 +296,7 @@ export const AdminNewsPage = ({ innerWidth }) => {
                         "Content-Type": "application/json;charset=UTF-8",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify({...data, ...mainMediaContent}),
                 }
             )
                 .then((response) => response.json())
@@ -493,7 +524,7 @@ export const AdminNewsPage = ({ innerWidth }) => {
             description: "Медиа файлы успешно привязаны",
         });
     };
-
+    console.log(templateRows);
     return (
         <AdminNewsPageStyled onSubmit={handleCreateArticle}>
             <section className="news-page__title mb-32">
@@ -717,13 +748,13 @@ export const AdminNewsPage = ({ innerWidth }) => {
                             gridRow: currentPos + 2,
                         }}
                     >
-                        <Button primary disabled={currentNewsId}>
+                        <Button primary disabled={currentNewsId && language === "RU"}>
                             Добавить новость
                         </Button>
                         <Button
                             type="button"
                             primary
-                            disabled={!currentNewsId}
+                            disabled={!currentNewsId || language !== "RU"}
                             onClick={uploadAllMediaToServer}
                         >
                             Загрузить медиа

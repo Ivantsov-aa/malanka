@@ -44,7 +44,7 @@ export const AdminNewsPageDateStyled = styled.p`
 
 export const AdminNewsPageContentPosStyled = styled.div`
     display: grid;
-    grid-temlate-column: 100%;
+    grid-template-columns: 100%;
     padding-top: 40px;
 `;
 
@@ -114,7 +114,7 @@ export const ContentEditControlContainerStyled = styled.div`
     grid-row: ${props => props.row};
     // overflow: hidden;
     margin-bottom: ${props => props.marginBottom}px;
-
+    
     button {
             display: flex;
             justify-content: center;

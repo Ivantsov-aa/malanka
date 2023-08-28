@@ -41,7 +41,7 @@ export const NewsPage = ({pathname, innerWidth}) => {
                 setSlider(photos);
             });
 
-        await fetch(`${url}/article?language=${language}&page=${location.state.currentPage || 0}`)
+        await fetch(`${url}/article?language=${language}&page=${location.state?.currentPage || 0}`)
             .then(response => response.json())
             .then(result => {
                 const currentArticleIndex = result.findIndex(c => c.id === +currentId);
@@ -49,7 +49,7 @@ export const NewsPage = ({pathname, innerWidth}) => {
                 if (currentArticleIndex !== 0) {
                     setPrevNews(result[currentArticleIndex - 1]);
                 } else {
-                    if (location.state.currentPage > 0) {
+                    if (location.state && location.state.currentPage > 0) {
                         fetch(`${url}/article?language=${language}&page=${location.state.currentPage - 1}`)
                             .then(response => response.json())
                             .then(result => {

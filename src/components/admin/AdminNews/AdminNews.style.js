@@ -63,3 +63,22 @@ export const DeletePopUpStyled = styled.div`
         }
     }
 `;
+
+export const NewsPageLangButtons = styled.div`
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    a {
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: rgb(118, 210, 117);
+        color: #fff;
+        font-weight: 700;
+
+        &:last-child {
+            margin-left: 8px;
+        }
+    }
+`;
